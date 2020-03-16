@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">kart</string>
+    //menu
+    <string name="menu_table">Tabela</string>
+    <string name="menu_runs">Corridas</string>
+    <string name="contact_email">fernando.mattos@protonmail.ch</string>
+    <string name="navigation_drawer_open">Navigation Drawer aberto</string>
+    <string name="navigation_drawer_close">Navigation Drawer fechado</string>
+    <string name="hint_pilot">Nome do piloto</string>
+    <string name="add_pilot_ok">Piloto adicionado</string>
+    <string name="msg_pilot_exist">Piloto já existe</string>
+    <string name="msg_pilot_removed">Piloto removido</string>
+    <string name="msg_pilot_not_removed">Piloto não removido</string>
+    <string name="msg_pilot_added">Piloto adicionado</string>
+    <string name="msg_empty_field">Campo vazio</string>
+    <string name="pilot_string">Piloto</string>
+</resources>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view" >
+
+    <group
+        android:id="@+id/nav_menu_view"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_table"
+            android:icon="@drawable/ic_assignment_black_24dp"
+            android:title="@string/menu_table"/>
+        <item
+            android:id="@+id/nav_runs"
+            android:icon="@drawable/ic_today_black_24dp"
+            android:title="@string/menu_runs" />
+    </group>
+
+    <group
+        android:id="@+id/nav_menu_edit"
+        android:checkableBehavior="none">
+        <item
+            android:id="@+id/nav_pilots"
+            android:icon="@drawable/ic_person_black_24dp"
+            android:title="@string/pilot_string" />
+    </group>
+
+</menu>
