@@ -15,4 +15,9 @@ public class TablesFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_table, container, false);
     }
+
+    public void onResume(){
+        super.onResume();
+        ((MainActivity) getActivity()).setActionBarTitle(getString(R.string.menu_table));
+    }
 }

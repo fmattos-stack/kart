@@ -18,7 +18,7 @@
 
     <group
         android:id="@+id/nav_menu_edit"
-        android:checkableBehavior="none">
+        android:checkableBehavior="single">
         <item
             android:id="@+id/nav_pilots"
             android:icon="@drawable/ic_person_black_24dp"

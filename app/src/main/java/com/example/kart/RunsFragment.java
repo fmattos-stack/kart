@@ -16,4 +16,9 @@ public class RunsFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_runs, container, false);
     }
+
+    public void onResume(){
+        super.onResume();
+        ((MainActivity) getActivity()).setActionBarTitle(getString(R.string.menu_runs));
+    }
 }

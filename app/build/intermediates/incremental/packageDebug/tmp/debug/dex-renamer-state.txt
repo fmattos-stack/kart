@@ -1,4 +1,4 @@
-#Mon Mar 16 13:03:07 BRT 2020
+#Mon Mar 16 22:14:58 BRT 2020
 base.0=/home/r00t/AndroidStudioProjects/kart/app/build/intermediates/dex/debug/mergeDexDebug/out/classes.dex
 path.0=classes.dex
 renamed.0=classes.dex

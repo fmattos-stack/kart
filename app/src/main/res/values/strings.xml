@@ -3,6 +3,7 @@
     //menu
     <string name="menu_table">Tabela</string>
     <string name="menu_runs">Corridas</string>
+    <string name="menu_pilots">Pilotos</string>
     <string name="contact_email">fernando.mattos@protonmail.ch</string>
     <string name="navigation_drawer_open">Navigation Drawer aberto</string>
     <string name="navigation_drawer_close">Navigation Drawer fechado</string>

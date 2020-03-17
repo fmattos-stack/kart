@@ -7,24 +7,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.database.DatabaseReference;
 
 public class PilotFragment extends Fragment {
 
     private FragmentActivity listener;
     private String string;
     private Table table = new Table();
-    private ArrayAdapter arrayAdapter;
+    private ListView listView;
 
     @Override
     public void onAttach(Context context) {
@@ -40,6 +38,11 @@ public class PilotFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_pilots, container, false);
     }
 
+    public void onResume(){
+        super.onResume();
+        ((MainActivity) getActivity()).setActionBarTitle(getString(R.string.menu_pilots));
+    }
+
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -48,22 +51,16 @@ public class PilotFragment extends Fragment {
         final TextView textView = (TextView)view.findViewById(R.id.input_pilot);
 
         //listview object
-        final ListView listView = (ListView) view.findViewById(R.id.listview);
-        //skip arrayAdapter instance if table isnt instanced
-        if (!table.isNull())
-            initArrayAdapter(listView);
+        listView = (ListView) view.findViewById(R.id.listview);
 
         //item selected
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String mensage = String.format("%s: %s", getString(R.string.msg_pilot_removed), table.getPosition(position).getName());
-                if (table.setRemove(position)) {
-                    initArrayAdapter(listView);
-                    arrayAdapter.notifyDataSetChanged();
-                }
-                else mensage = getString(R.string.msg_pilot_not_removed) + ": " + table.getPosition(position).getName();
-                Toast.makeText(getActivity(), mensage,Toast.LENGTH_SHORT).show();
+                //String mensage = String.format("%s: %s", getString(R.string.msg_pilot_removed), table.getPosition(position).getName());
+                //check if pilot was removed
+                //mensage = getString(R.string.msg_pilot_not_removed) + ": " + table.getPosition(position).getName();
+                Toast.makeText(getActivity(), "desativado",Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -72,15 +69,15 @@ public class PilotFragment extends Fragment {
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 String mensage;
                 string = textView.getText().toString();
                 textView.setText("");
                 if (string.isEmpty()){ mensage = getString(R.string.msg_empty_field); }
                 else {
                     Pilot pilot = new Pilot(string);
-                    if (table.setAdd(pilot)) {
-                        initArrayAdapter(listView);
-                        arrayAdapter.notifyDataSetChanged();
+                    if (pilot.addPilot(pilot)) {
+                        //arrayAdapter.notifyDataSetChanged();
                         mensage = getString(R.string.msg_pilot_added) + ": " + string;
                     }
                     else
@@ -89,9 +86,6 @@ public class PilotFragment extends Fragment {
                 Toast.makeText(getActivity(), mensage,Toast.LENGTH_SHORT).show();
             }
         });
-    }
-    private void initArrayAdapter(ListView listView){
-        arrayAdapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, table.convertToStringList());
-        listView.setAdapter(arrayAdapter);
+
     }
 }

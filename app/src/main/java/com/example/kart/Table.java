@@ -1,11 +1,14 @@
 package com.example.kart;
 
+import com.google.firebase.database.DatabaseReference;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
-public class Table {
+public class Table extends FirebaseHelper{
 
+    private DatabaseReference databaseReference;
     private ArrayList<Pilot> pilots;
 
     public Table(){
@@ -46,12 +49,6 @@ public class Table {
             return true;
         }
         return false;
-    }
-
-    public boolean setAdd(Pilot pilot){
-        if(isPilotExist(pilot.getName())){ return false; }
-        pilots.add(pilot);
-        return true;
     }
 
     public Pilot getPosition(int position){
