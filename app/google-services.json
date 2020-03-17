@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "613081156264",
+    "firebase_url": "https://kart-626c1.firebaseio.com",
+    "project_id": "kart-626c1",
+    "storage_bucket": "kart-626c1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:613081156264:android:eac69b720c749f0e0c109d",
+        "android_client_info": {
+          "package_name": "com.example.kart"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "613081156264-dmus5jkl6u3q325sj1as9905fa6b2429.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.kart",
+            "certificate_hash": "bdfacee9abf53c97cbb580058e6338cf1da1c99f"
+          }
+        },
+        {
+          "client_id": "613081156264-s2lthiap9qe4m7kn3fu555q8qf7hjn7g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDBQV_tJCUfylKTklGBOLUMNbaowtBrlsg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "613081156264-s2lthiap9qe4m7kn3fu555q8qf7hjn7g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
