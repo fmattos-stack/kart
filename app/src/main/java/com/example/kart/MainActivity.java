@@ -8,6 +8,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.app.ActionBar;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
@@ -45,9 +46,10 @@ import java.util.List;
         toggle.syncState();
 
         if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                    new PilotFragment()).commit();
-            navigationView.setCheckedItem(R.id.nav_pilots);
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new TablesFragment()).commit();
+            //Intent intent = new Intent(getApplicationContext(), PilotRegister.class);
+            //startActivity(intent);
+            navigationView.setCheckedItem(R.id.nav_table);
         }
     }
 
@@ -64,8 +66,9 @@ import java.util.List;
                         new RunsFragment()).commit();
                 break;
             case R.id.nav_pilots:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new PilotFragment()).commit();
+                //getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new PilotFragment()).commit();
+                Intent intent = new Intent(getApplicationContext(), PilotRegister.class);
+                startActivity(intent);
                 break;
         }
         drawer.closeDrawer(GravityCompat.START);

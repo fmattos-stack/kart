@@ -1,9 +1,9 @@
 -- Merging decision tree log ---
 manifest
-ADDED from /home/r00t/AndroidStudioProjects/kart/app/src/main/AndroidManifest.xml:2:1-24:12
-INJECTED from /home/r00t/AndroidStudioProjects/kart/app/src/main/AndroidManifest.xml:2:1-24:12
-INJECTED from /home/r00t/AndroidStudioProjects/kart/app/src/main/AndroidManifest.xml:2:1-24:12
-INJECTED from /home/r00t/AndroidStudioProjects/kart/app/src/main/AndroidManifest.xml:2:1-24:12
+ADDED from /home/r00t/AndroidStudioProjects/kart/app/src/main/AndroidManifest.xml:2:1-26:12
+INJECTED from /home/r00t/AndroidStudioProjects/kart/app/src/main/AndroidManifest.xml:2:1-26:12
+INJECTED from /home/r00t/AndroidStudioProjects/kart/app/src/main/AndroidManifest.xml:2:1-26:12
+INJECTED from /home/r00t/AndroidStudioProjects/kart/app/src/main/AndroidManifest.xml:2:1-26:12
 MERGED from [com.google.android.material:material:1.1.0] /home/r00t/.gradle/caches/transforms-2/files-2.1/e6237e593c9bb5837f34475ce79f09f9/material-1.1.0/AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.appcompat:appcompat:1.1.0] /home/r00t/.gradle/caches/transforms-2/files-2.1/53af1f37d65227eb5bcf361cc28c52ea/appcompat-1.1.0/AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.constraintlayout:constraintlayout:1.1.3] /home/r00t/.gradle/caches/transforms-2/files-2.1/3586cf9e5d37a5be2bbe710dbdaeb36f/constraintlayout-1.1.3/AndroidManifest.xml:2:1-11:12
@@ -47,20 +47,20 @@ MERGED from [androidx.arch.core:core-runtime:2.0.0] /home/r00t/.gradle/caches/tr
 MERGED from [androidx.documentfile:documentfile:1.0.0] /home/r00t/.gradle/caches/transforms-2/files-2.1/5e16f5c1b50d3925eacca3aafb488976/documentfile-1.0.0/AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] /home/r00t/.gradle/caches/transforms-2/files-2.1/9334aced248444506050b27395495422/localbroadcastmanager-1.0.0/AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.print:print:1.0.0] /home/r00t/.gradle/caches/transforms-2/files-2.1/f15566ac99d93f31d0227f09e1f27c57/print-1.0.0/AndroidManifest.xml:17:1-22:12
-INJECTED from /home/r00t/AndroidStudioProjects/kart/app/src/main/AndroidManifest.xml:2:1-24:12
-INJECTED from /home/r00t/AndroidStudioProjects/kart/app/src/main/AndroidManifest.xml:2:1-24:12
-INJECTED from /home/r00t/AndroidStudioProjects/kart/app/src/main/AndroidManifest.xml:2:1-24:12
+INJECTED from /home/r00t/AndroidStudioProjects/kart/app/src/main/AndroidManifest.xml:2:1-26:12
+INJECTED from /home/r00t/AndroidStudioProjects/kart/app/src/main/AndroidManifest.xml:2:1-26:12
+INJECTED from /home/r00t/AndroidStudioProjects/kart/app/src/main/AndroidManifest.xml:2:1-26:12
 	package
 		ADDED from /home/r00t/AndroidStudioProjects/kart/app/src/main/AndroidManifest.xml:3:5-31
 		INJECTED from /home/r00t/AndroidStudioProjects/kart/app/src/main/AndroidManifest.xml
 		INJECTED from /home/r00t/AndroidStudioProjects/kart/app/src/main/AndroidManifest.xml
 	android:versionName
 		INJECTED from /home/r00t/AndroidStudioProjects/kart/app/src/main/AndroidManifest.xml
-		ADDED from /home/r00t/AndroidStudioProjects/kart/app/src/main/AndroidManifest.xml:2:1-24:12
+		ADDED from /home/r00t/AndroidStudioProjects/kart/app/src/main/AndroidManifest.xml:2:1-26:12
 		INJECTED from /home/r00t/AndroidStudioProjects/kart/app/src/main/AndroidManifest.xml
 	android:versionCode
 		INJECTED from /home/r00t/AndroidStudioProjects/kart/app/src/main/AndroidManifest.xml
-		ADDED from /home/r00t/AndroidStudioProjects/kart/app/src/main/AndroidManifest.xml:2:1-24:12
+		ADDED from /home/r00t/AndroidStudioProjects/kart/app/src/main/AndroidManifest.xml:2:1-26:12
 		INJECTED from /home/r00t/AndroidStudioProjects/kart/app/src/main/AndroidManifest.xml
 	xmlns:android
 		ADDED from /home/r00t/AndroidStudioProjects/kart/app/src/main/AndroidManifest.xml:2:11-69
@@ -71,7 +71,7 @@ MERGED from [com.google.firebase:firebase-database:16.0.4] /home/r00t/.gradle/ca
 	android:name
 		ADDED from /home/r00t/AndroidStudioProjects/kart/app/src/main/AndroidManifest.xml:5:22-64
 application
-ADDED from /home/r00t/AndroidStudioProjects/kart/app/src/main/AndroidManifest.xml:7:5-22:19
+ADDED from /home/r00t/AndroidStudioProjects/kart/app/src/main/AndroidManifest.xml:7:5-24:19
 MERGED from [com.google.android.material:material:1.1.0] /home/r00t/.gradle/caches/transforms-2/files-2.1/e6237e593c9bb5837f34475ce79f09f9/material-1.1.0/AndroidManifest.xml:22:5-20
 MERGED from [com.google.android.material:material:1.1.0] /home/r00t/.gradle/caches/transforms-2/files-2.1/e6237e593c9bb5837f34475ce79f09f9/material-1.1.0/AndroidManifest.xml:22:5-20
 MERGED from [androidx.constraintlayout:constraintlayout:1.1.3] /home/r00t/.gradle/caches/transforms-2/files-2.1/3586cf9e5d37a5be2bbe710dbdaeb36f/constraintlayout-1.1.3/AndroidManifest.xml:9:5-20
@@ -102,22 +102,26 @@ MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.0] /home/r00t/
 		ADDED from /home/r00t/AndroidStudioProjects/kart/app/src/main/AndroidManifest.xml:8:9-35
 	android:theme
 		ADDED from /home/r00t/AndroidStudioProjects/kart/app/src/main/AndroidManifest.xml:13:9-40
+activity#com.example.kart.PilotRegister
+ADDED from /home/r00t/AndroidStudioProjects/kart/app/src/main/AndroidManifest.xml:14:9-60
+	android:name
+		ADDED from /home/r00t/AndroidStudioProjects/kart/app/src/main/AndroidManifest.xml:14:19-48
 activity#com.example.kart.MainActivity
-ADDED from /home/r00t/AndroidStudioProjects/kart/app/src/main/AndroidManifest.xml:14:9-21:20
+ADDED from /home/r00t/AndroidStudioProjects/kart/app/src/main/AndroidManifest.xml:15:9-23:20
 	android:theme
-		ADDED from /home/r00t/AndroidStudioProjects/kart/app/src/main/AndroidManifest.xml:15:13-56
+		ADDED from /home/r00t/AndroidStudioProjects/kart/app/src/main/AndroidManifest.xml:17:13-56
 	android:name
-		ADDED from /home/r00t/AndroidStudioProjects/kart/app/src/main/AndroidManifest.xml:14:19-47
+		ADDED from /home/r00t/AndroidStudioProjects/kart/app/src/main/AndroidManifest.xml:16:13-41
 intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
-ADDED from /home/r00t/AndroidStudioProjects/kart/app/src/main/AndroidManifest.xml:16:13-20:29
+ADDED from /home/r00t/AndroidStudioProjects/kart/app/src/main/AndroidManifest.xml:18:13-22:29
 action#android.intent.action.MAIN
-ADDED from /home/r00t/AndroidStudioProjects/kart/app/src/main/AndroidManifest.xml:17:17-69
+ADDED from /home/r00t/AndroidStudioProjects/kart/app/src/main/AndroidManifest.xml:19:17-69
 	android:name
-		ADDED from /home/r00t/AndroidStudioProjects/kart/app/src/main/AndroidManifest.xml:17:25-66
+		ADDED from /home/r00t/AndroidStudioProjects/kart/app/src/main/AndroidManifest.xml:19:25-66
 category#android.intent.category.LAUNCHER
-ADDED from /home/r00t/AndroidStudioProjects/kart/app/src/main/AndroidManifest.xml:19:17-77
+ADDED from /home/r00t/AndroidStudioProjects/kart/app/src/main/AndroidManifest.xml:21:17-77
 	android:name
-		ADDED from /home/r00t/AndroidStudioProjects/kart/app/src/main/AndroidManifest.xml:19:27-74
+		ADDED from /home/r00t/AndroidStudioProjects/kart/app/src/main/AndroidManifest.xml:21:27-74
 uses-sdk
 INJECTED from /home/r00t/AndroidStudioProjects/kart/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from /home/r00t/AndroidStudioProjects/kart/app/src/main/AndroidManifest.xml

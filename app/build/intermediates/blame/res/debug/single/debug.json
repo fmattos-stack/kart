@@ -28,12 +28,12 @@
         "source": "/home/r00t/.gradle/caches/transforms-2/files-2.1/e6237e593c9bb5837f34475ce79f09f9/material-1.1.0/res/anim/design_snackbar_in.xml"
     },
     {
-        "merged": "/home/r00t/AndroidStudioProjects/kart/app/build/intermediates/res/merged/debug/drawable-xxxhdpi_ic_assignment_black_24dp.png.flat",
-        "source": "/home/r00t/AndroidStudioProjects/kart/app/build/generated/res/pngs/debug/drawable-xxxhdpi/ic_assignment_black_24dp.png"
-    },
-    {
         "merged": "/home/r00t/AndroidStudioProjects/kart/app/build/intermediates/res/merged/debug/drawable-xxhdpi-v4_abc_textfield_default_mtrl_alpha.9.png.flat",
         "source": "/home/r00t/.gradle/caches/transforms-2/files-2.1/53af1f37d65227eb5bcf361cc28c52ea/appcompat-1.1.0/res/drawable-xxhdpi-v4/abc_textfield_default_mtrl_alpha.9.png"
+    },
+    {
+        "merged": "/home/r00t/AndroidStudioProjects/kart/app/build/intermediates/res/merged/debug/drawable-xxxhdpi_ic_assignment_black_24dp.png.flat",
+        "source": "/home/r00t/AndroidStudioProjects/kart/app/build/generated/res/pngs/debug/drawable-xxxhdpi/ic_assignment_black_24dp.png"
     },
     {
         "merged": "/home/r00t/AndroidStudioProjects/kart/app/build/intermediates/res/merged/debug/color_mtrl_tabs_ripple_color.xml.flat",
@@ -48,12 +48,12 @@
         "source": "/home/r00t/.gradle/caches/transforms-2/files-2.1/53af1f37d65227eb5bcf361cc28c52ea/appcompat-1.1.0/res/drawable-xxhdpi-v4/abc_scrubber_control_to_pressed_mtrl_005.png"
     },
     {
-        "merged": "/home/r00t/AndroidStudioProjects/kart/app/build/intermediates/res/merged/debug/drawable-hdpi-v4_design_ic_visibility_off.png.flat",
-        "source": "/home/r00t/.gradle/caches/transforms-2/files-2.1/e6237e593c9bb5837f34475ce79f09f9/material-1.1.0/res/drawable-hdpi-v4/design_ic_visibility_off.png"
-    },
-    {
         "merged": "/home/r00t/AndroidStudioProjects/kart/app/build/intermediates/res/merged/debug/layout_select_dialog_item_material.xml.flat",
         "source": "/home/r00t/.gradle/caches/transforms-2/files-2.1/53af1f37d65227eb5bcf361cc28c52ea/appcompat-1.1.0/res/layout/select_dialog_item_material.xml"
+    },
+    {
+        "merged": "/home/r00t/AndroidStudioProjects/kart/app/build/intermediates/res/merged/debug/drawable-hdpi-v4_design_ic_visibility_off.png.flat",
+        "source": "/home/r00t/.gradle/caches/transforms-2/files-2.1/e6237e593c9bb5837f34475ce79f09f9/material-1.1.0/res/drawable-hdpi-v4/design_ic_visibility_off.png"
     },
     {
         "merged": "/home/r00t/AndroidStudioProjects/kart/app/build/intermediates/res/merged/debug/drawable-hdpi-v4_abc_list_pressed_holo_light.9.png.flat",
@@ -722,6 +722,10 @@
     {
         "merged": "/home/r00t/AndroidStudioProjects/kart/app/build/intermediates/res/merged/debug/layout_test_toolbar.xml.flat",
         "source": "/home/r00t/.gradle/caches/transforms-2/files-2.1/e6237e593c9bb5837f34475ce79f09f9/material-1.1.0/res/layout/test_toolbar.xml"
+    },
+    {
+        "merged": "/home/r00t/AndroidStudioProjects/kart/app/build/intermediates/res/merged/debug/layout_activity_pilot_register.xml.flat",
+        "source": "/home/r00t/AndroidStudioProjects/kart/app/src/main/res/layout/activity_pilot_register.xml"
     },
     {
         "merged": "/home/r00t/AndroidStudioProjects/kart/app/build/intermediates/res/merged/debug/layout_mtrl_alert_select_dialog_item.xml.flat",

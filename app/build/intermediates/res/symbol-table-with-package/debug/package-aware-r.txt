@@ -1550,6 +1550,7 @@ id exitUntilCollapsed
 id expand_activities_button
 id expanded_menu
 id fab_pilot_add
+id fab_pilot_add_dev
 id fade
 id fill
 id fill_horizontal
@@ -1576,6 +1577,7 @@ id image
 id imageView
 id info
 id input_pilot
+id input_pilot_dev
 id invisible
 id italic
 id item_touch_helper_previous_elevation
@@ -1587,7 +1589,9 @@ id line1
 id line3
 id listMode
 id list_item
-id listview
+id listview_pilot
+id listview_pilot_dev
+id listview_table
 id masked
 id media_actions
 id message
@@ -1721,6 +1725,8 @@ id text_input_start_icon
 id textinput_counter
 id textinput_error
 id textinput_helper_text
+id textview_pilot
+id textview_table
 id time
 id title
 id titleDividerNoCustom
@@ -1807,6 +1813,7 @@ layout abc_search_view
 layout abc_select_dialog_material
 layout abc_tooltip
 layout activity_main
+layout activity_pilot_register
 layout custom_dialog
 layout design_bottom_navigation_item
 layout design_bottom_sheet_dialog
@@ -1959,6 +1966,7 @@ string google_storage_bucket
 string hide_bottom_view_on_scroll_behavior
 string hint_pilot
 string icon_content_description
+string layout_table
 string menu_pilots
 string menu_runs
 string menu_table

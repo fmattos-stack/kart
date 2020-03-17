@@ -15,4 +15,5 @@
     <string name="msg_pilot_added">Piloto adicionado</string>
     <string name="msg_empty_field">Campo vazio</string>
     <string name="pilot_string">Piloto</string>
+    <string name="layout_table">Rank - Piloto - Pontos</string>
 </resources>

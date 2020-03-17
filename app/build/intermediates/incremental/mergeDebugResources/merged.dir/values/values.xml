@@ -835,6 +835,7 @@
     <string name="hide_bottom_view_on_scroll_behavior" translatable="false">com.google.android.material.behavior.HideBottomViewOnScrollBehavior</string>
     <string name="hint_pilot">Nome do piloto</string>
     <string description="Content description for an icon that appears in the title area of a dialog" name="icon_content_description">Dialog Icon</string>
+    <string name="layout_table">Rank - Piloto - Pontos</string>
     <string name="menu_pilots">Pilotos</string>
     <string name="menu_runs">Corridas</string>
     <string name="menu_table">Tabela</string>

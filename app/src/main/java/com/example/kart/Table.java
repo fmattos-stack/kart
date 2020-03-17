@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
-public class Table extends FirebaseHelper{
+public class Table {
 
     private DatabaseReference databaseReference;
     private ArrayList<Pilot> pilots;
