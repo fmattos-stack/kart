@@ -50,7 +50,7 @@ public class Pilot {
 
     @Override
     public String toString(){
-        return rank + " - " + name + " - " + points + " - ";
+        return rank + " - " + name + " - " + points;
     }
 
 

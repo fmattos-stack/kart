@@ -1,18 +1,14 @@
 package com.example.kart;
 
+import android.os.Bundle;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.Fragment;
 
-import android.app.Activity;
-import android.content.Context;
-import android.os.Bundle;
-import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -20,7 +16,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -30,36 +25,48 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.EventListener;
 
-public class PilotRegister extends AppCompatActivity {
 
-    private DrawerLayout drawer;
-    DatabaseReference databaseReference;
-    ListView listView;
+/**
+ * A simple {@link Fragment} subclass.
+ */
+public class PilotFragment extends Fragment {
+
     TextView textView;
-    FloatingActionButton floatingActionButton;
+    ListView listView;
+    DatabaseReference databaseReference;
+    ArrayAdapter<String> adapter;
     ArrayList<String> listview_pilots = new ArrayList<>();
     ArrayList<String> ids = new ArrayList<>();
-    ArrayAdapter<String> adapter;
+    FloatingActionButton floatingActionButton;
+    View view;
+
+    public PilotFragment() {
+        // Required empty public constructor
+    }
+    public void onResume(){
+        super.onResume();
+        ((MainActivity) getActivity()).setActionBarTitle(getString(R.string.menu_pilot_register));
+    }
+
+
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_pilot_register);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        view = inflater.inflate(R.layout.fragment_register_pilot, container, false);
 
-        setActionBarTitle(getString(R.string.menu_pilots));
-
-        textView = (TextView) findViewById(R.id.textview_pilot);
-        listView = (ListView) findViewById(R.id.listview_pilot);
+        textView = (TextView) view.findViewById(R.id.textview_pilot);
+        listView = (ListView) view.findViewById(R.id.listview_pilot);
         databaseReference = FirebaseDatabase.getInstance().getReference("database").child("Pilot");
-        adapter = new ArrayAdapter<>(this,android.R.layout.simple_list_item_1,listview_pilots);
+        adapter = new ArrayAdapter<>(getContext(),android.R.layout.simple_list_item_1,listview_pilots);
         listView.setAdapter(adapter);
 
         listviewFuntion();
 
         fabButton();
 
+        return view;
     } //onCreate method
 
     public void listviewFuntion(){
@@ -105,7 +112,7 @@ public class PilotRegister extends AppCompatActivity {
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         databaseReference.child(key).removeValue();
                         adapter.notifyDataSetChanged();
-                        Toast.makeText(getApplicationContext(), getString(R.string.msg_pilot_removed), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), getString(R.string.msg_pilot_removed), Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
@@ -134,11 +141,11 @@ public class PilotRegister extends AppCompatActivity {
     }
 
     public void fabButton(){
-        floatingActionButton = (FloatingActionButton) findViewById(R.id.fab_pilot_add);
+        floatingActionButton = (FloatingActionButton) view.findViewById(R.id.fab_pilot_add);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String string = textView.getText().toString();
+                String string = textView.getText().toString().replaceAll("\n"," ").trim();
                 textView.setText("");
                 if (string.isEmpty())
                     Toast.makeText(v.getContext(), getString(R.string.msg_empty_field),Toast.LENGTH_SHORT).show();
@@ -156,13 +163,13 @@ public class PilotRegister extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()){
-                    Toast.makeText(getApplicationContext(), getString(R.string.msg_pilot_exist), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), getString(R.string.msg_pilot_exist), Toast.LENGTH_SHORT).show();
                 }
                 else {
                     pilot.setId(databaseReference.push().getKey());
                     databaseReference.child(pilot.getId()).setValue(pilot);
                     adapter.notifyDataSetChanged();
-                    Toast.makeText(getApplicationContext(), getString(R.string.msg_pilot_added), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), getString(R.string.msg_pilot_added), Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -173,8 +180,4 @@ public class PilotRegister extends AppCompatActivity {
         });
     }
 
-    public void setActionBarTitle(String title) {
-        getSupportActionBar().setTitle(title);
-    }
-
-} //PilotRegister class
+} //class

@@ -2,8 +2,9 @@
     <string name="app_name">kart</string>
     //menu
     <string name="menu_table">Tabela</string>
-    <string name="menu_runs">Corridas</string>
-    <string name="menu_pilots">Pilotos</string>
+    <string name="menu_run">Corridas</string>
+    <string name="menu_run_register">Cadastrar Corrida</string>
+    <string name="menu_pilot_register">Cadastrar Pilotos</string>
     <string name="contact_email">fernando.mattos@protonmail.ch</string>
     <string name="navigation_drawer_open">Navigation Drawer aberto</string>
     <string name="navigation_drawer_close">Navigation Drawer fechado</string>
@@ -14,6 +15,16 @@
     <string name="msg_pilot_not_removed">Piloto não removido</string>
     <string name="msg_pilot_added">Piloto adicionado</string>
     <string name="msg_empty_field">Campo vazio</string>
+    <string name="msg_run_exist">Corrida já foi registrada</string>
+    <string name="msg_run_add">Corrida registrada</string>
     <string name="pilot_string">Piloto</string>
     <string name="layout_table">Rank - Piloto - Pontos</string>
+    <string name="hint_run_rank">Pilotos na ordem de chegada</string>
+    <string name="msg_run_date">Data da corrida</string>
+    <string name="msg_register">Cadastro de corridas</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
 </resources>

@@ -46,9 +46,7 @@ import java.util.List;
         toggle.syncState();
 
         if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new TablesFragment()).commit();
-            //Intent intent = new Intent(getApplicationContext(), PilotRegister.class);
-            //startActivity(intent);
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new TableFragment()).commit();
             navigationView.setCheckedItem(R.id.nav_table);
         }
     }
@@ -58,18 +56,14 @@ import java.util.List;
         switch (item.getItemId()) {
             case R.id.nav_table:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new TablesFragment()).commit();
+                        new TableFragment()).commit();
                 break;
-            case R.id.nav_runs:
+            case R.id.nav_run:
 
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new RunsFragment()).commit();
+                        new RunFragment()).commit();
                 break;
-            case R.id.nav_pilots:
-                //getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new PilotFragment()).commit();
-                Intent intent = new Intent(getApplicationContext(), PilotRegister.class);
-                startActivity(intent);
-                break;
+
         }
         drawer.closeDrawer(GravityCompat.START);
          return true;
@@ -88,6 +82,4 @@ import java.util.List;
      public void setActionBarTitle(String title) {
          getSupportActionBar().setTitle(title);
      }
-
-
  }

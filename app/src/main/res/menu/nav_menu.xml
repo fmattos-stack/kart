@@ -11,18 +11,10 @@
             android:icon="@drawable/ic_assignment_black_24dp"
             android:title="@string/menu_table"/>
         <item
-            android:id="@+id/nav_runs"
+            android:id="@+id/nav_run"
             android:icon="@drawable/ic_today_black_24dp"
-            android:title="@string/menu_runs" />
+            android:title="@string/menu_run" />
     </group>
 
-    <group
-        android:id="@+id/nav_menu_edit"
-        android:checkableBehavior="single">
-        <item
-            android:id="@+id/nav_pilots"
-            android:icon="@drawable/ic_person_black_24dp"
-            android:title="@string/pilot_string" />
-    </group>
 
 </menu>
