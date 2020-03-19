@@ -25,7 +25,7 @@ public class TableFragment extends Fragment {
 
     ListView listView;
     DatabaseReference databaseReference;
-    ArrayList<String> listview_table = new ArrayList<>();
+    ArrayList<String> table = new ArrayList<>();
     ArrayList<String> ids = new ArrayList<>();
     ArrayAdapter<String> adapter;
     FloatingActionButton floatingActionButton;
@@ -36,10 +36,11 @@ public class TableFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_table, container, false);
 
-        listView = (ListView) view.findViewById(R.id.listview_table);
-        databaseReference = FirebaseDatabase.getInstance().getReference("database").child("Pilot");
+        databaseReference = FirebaseDatabase.getInstance().getReference("database").child("pilot");
 
-        adapter = new ArrayAdapter<String>(view.getContext(),android.R.layout.simple_list_item_1,listview_table);
+        //listview
+        listView = (ListView) view.findViewById(R.id.listview_table);
+        adapter = new ArrayAdapter<String>(view.getContext(),android.R.layout.simple_list_item_1, table);
         listView.setAdapter(adapter);
 
         listviewFunction();
@@ -54,7 +55,7 @@ public class TableFragment extends Fragment {
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new PilotFragment()).commit();
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new RegisterPilotFragment()).commit();
             }
         });
     }
@@ -90,7 +91,7 @@ public class TableFragment extends Fragment {
 
     public void listviewAdd(@NonNull DataSnapshot dataSnapshot){
         String row = dataSnapshot.getValue(Pilot.class).toString();
-        listview_table.add(row);
+        table.add(row);
         String key = dataSnapshot.getKey();
         ids.add(key);
         adapter.notifyDataSetChanged();
@@ -98,7 +99,7 @@ public class TableFragment extends Fragment {
 
     public void listviewDel(@NonNull DataSnapshot dataSnapshot){
         String row = dataSnapshot.getValue(Pilot.class).toString();
-        listview_table.remove(row);
+        table.remove(row);
         String key = dataSnapshot.getKey();
         ids.remove(key);
         adapter.notifyDataSetChanged();

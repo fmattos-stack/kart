@@ -66,7 +66,7 @@ public class RegisterRunFragment extends Fragment {
             date = "0" + dd;
         else
             date = String.valueOf(dd);
-        mm = datePicker.getMonth();
+        mm = datePicker.getMonth() + 1;
         if (mm < 10)
             date += "0" + mm;
         else
@@ -83,7 +83,7 @@ public class RegisterRunFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
-                    Toast.makeText(getContext(),getString(R.string.msg_run_exist),Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(),getString(R.string.msg_run_exist) + date,Toast.LENGTH_SHORT).show();
                 }
                 else{
                     run.setId(databaseReference.push().getKey());

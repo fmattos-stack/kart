@@ -4,7 +4,7 @@
             "outputFile": "/home/r00t/AndroidStudioProjects/kart/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-v18/values-v18.xml",
             "map": [
                 {
-                    "source": "/home/r00t/.gradle/caches/transforms-2/files-2.1/53af1f37d65227eb5bcf361cc28c52ea/appcompat-1.1.0/res/values-v18/values-v18.xml",
+                    "source": "/home/r00t/.gradle/caches/transforms-2/files-2.1/f350b9c8987c067c7d37aeb24b1ba637/appcompat-1.1.0/res/values-v18/values-v18.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
