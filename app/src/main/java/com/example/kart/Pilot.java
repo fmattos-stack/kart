@@ -1,19 +1,42 @@
 package com.example.kart;
 
+import java.util.ArrayList;
+
 public class Pilot {
 
     private String id;
     private String name;
-    private int points;
+    private int total_points;
     private int rank;
+    private int runs;
 
-    public Pilot(){
-
-    }
+    public Pilot(){}
 
     public Pilot(String name){
         this.setName(name);
-        this.setPoints(0);
+        this.setTotal_points(0);
+        this.setRank(0);
+        this.setRuns(0);
+    }
+
+    public int getTotal_points() {
+        return total_points;
+    }
+
+    public void setTotal_points(int point) {
+        this.total_points += point;
+    }
+
+    public void delTotalPoints(int point){
+        this.total_points -= point;
+    }
+
+    public int getRuns() {
+        return runs;
+    }
+
+    public void setRuns(int runs) {
+        this.runs = runs;
     }
 
     public String getId() {
@@ -22,14 +45,6 @@ public class Pilot {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public int getPoints() {
-        return points;
-    }
-
-    public void setPoints(int points) {
-        this.points = points;
     }
 
     public int getRank() {
@@ -50,7 +65,7 @@ public class Pilot {
 
     @Override
     public String toString(){
-        return rank + " - " + name + " - " + points;
+        return rank + " - " + name + " - " + total_points;
     }
 
 

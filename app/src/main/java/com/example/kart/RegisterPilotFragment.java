@@ -1,8 +1,10 @@
 package com.example.kart;
 
+import android.os.Build;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +23,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
+import java.util.Objects;
 
 
 /**
@@ -40,9 +43,10 @@ public class RegisterPilotFragment extends Fragment {
     public RegisterPilotFragment() {
         // Required empty public constructor
     }
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public void onResume(){
         super.onResume();
-        ((MainActivity) getActivity()).setActionBarTitle(getString(R.string.menu_pilot_register));
+        ((MainActivity) Objects.requireNonNull(getActivity())).setActionBarTitle(getString(R.string.menu_pilot_register));
     }
 
     @Override
@@ -55,7 +59,7 @@ public class RegisterPilotFragment extends Fragment {
 
         //listview
         listView = (ListView) view.findViewById(R.id.listview_pilot);
-        adapter = new ArrayAdapter<>(getContext(),android.R.layout.simple_expandable_list_item_1,pilots);
+        adapter = new ArrayAdapter<>(container.getContext(),android.R.layout.simple_expandable_list_item_1,pilots);
         listView.setAdapter(adapter);
 
         listviewFuntion();
@@ -120,16 +124,18 @@ public class RegisterPilotFragment extends Fragment {
         });
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public void listviewAdd(@NonNull DataSnapshot dataSnapshot){
-        String row = dataSnapshot.getValue(Pilot.class).getName();
+        String row = Objects.requireNonNull(dataSnapshot).getValue(Pilot.class).getName();
         pilots.add(row);
         String key = dataSnapshot.getKey();
         ids.add(key);
         adapter.notifyDataSetChanged();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public void listviewDel(@NonNull DataSnapshot dataSnapshot){
-        String row = dataSnapshot.getValue(Pilot.class).getName();
+        String row = Objects.requireNonNull(dataSnapshot).getValue(Pilot.class).getName();
         pilots.remove(row);
         String key = dataSnapshot.getKey();
         ids.remove(key);

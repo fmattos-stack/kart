@@ -1,8 +1,10 @@
 package com.example.kart;
 
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -10,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -22,6 +25,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Objects;
 
 
 /**
@@ -33,6 +37,8 @@ public class RegisterRunFragment extends Fragment {
     FloatingActionButton floatingActionButton;
     DatePicker datePicker;
     String date;
+    EditText editText;
+    ArrayList<String> rank = new ArrayList<>();
     DatabaseReference databaseReference;
 
     @Override
@@ -42,6 +48,7 @@ public class RegisterRunFragment extends Fragment {
 
         databaseReference = FirebaseDatabase.getInstance().getReference("database").child("run");
         datePicker = (DatePicker) view.findViewById(R.id.datepicker_run);
+        editText = (EditText) view.findViewById(R.id.textview_run);
         floatingActionButton = (FloatingActionButton) view.findViewById(R.id.fab_run_add);
 
         fabRunAdd();
@@ -53,13 +60,20 @@ public class RegisterRunFragment extends Fragment {
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                date = formatData();
+                formatData();
+                formatRank();
                 runRegister();
             }
         });
     }
 
-    public String formatData(){
+    public void formatRank(){
+        String[] array = editText.getText().toString().split("\n");
+        for(String position : array)
+            rank.add(position);
+    }
+
+    public void formatData(){
         int dd,mm,yyyy;
         dd = datePicker.getDayOfMonth();
         if (dd < 10)
@@ -73,11 +87,10 @@ public class RegisterRunFragment extends Fragment {
             date += String.valueOf(mm);
         yyyy = datePicker.getYear();
         date += String.valueOf(yyyy);
-        return date;
     }
 
     public void runRegister(){
-        final Run run = new Run(date);
+        final Run run = new Run(date,rank);
         Query query = databaseReference.orderByChild("date").equalTo(date);
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -87,6 +100,7 @@ public class RegisterRunFragment extends Fragment {
                 }
                 else{
                     run.setId(databaseReference.push().getKey());
+                    run.setRank(rank);
                     databaseReference.child(run.getId()).setValue(run);
                     Toast.makeText(getContext(),getString(R.string.msg_run_add),Toast.LENGTH_SHORT).show();
                 }
@@ -99,8 +113,9 @@ public class RegisterRunFragment extends Fragment {
         });
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public void onResume(){
         super.onResume();
-        ((MainActivity) getActivity()).setActionBarTitle(getString(R.string.msg_register));
+        ((MainActivity) Objects.requireNonNull(getActivity())).setActionBarTitle(getString(R.string.msg_register));
     }
 }

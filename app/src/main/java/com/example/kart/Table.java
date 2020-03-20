@@ -7,57 +7,53 @@ import java.util.Comparator;
 
 public class Table {
 
-    private DatabaseReference databaseReference;
-    private ArrayList<Pilot> pilots;
+    private ArrayList<Pilot> table;
 
     public Table(){
-        pilots = new ArrayList<>();
+        table = new ArrayList<>();
     }
 
-    public boolean isNull(){
-        if (pilots == null) {
-            return true;
-        }
-         return false;
+    public void add(Pilot pilot){
+        table.add(pilot);
     }
 
     public void setRank(){
         int position = 0;
-        for(Pilot pilot : pilots){
-            pilots.get(position).setRank(position+1);
+        for(Pilot pilot : table){
+            table.get(position).setRank(position+1);
             position++;
         }
     }
 
     public void sortTable(){
-        Collections.sort(pilots, new Comparator<Pilot>() {
+        Collections.sort(table, new Comparator<Pilot>() {
             @Override
             public int compare(Pilot o1, Pilot o2) {
-                return Double.compare(o1.getPoints(), o2.getPoints());
+                return Double.compare(o1.getTotal_points(), o2.getTotal_points());
             }
         });
     }
 
     public int getSize(){
-        return pilots.size();
+        return table.size();
     }
 
     public boolean setRemove(int position){
-        if (isPilotExist(pilots.get(position).getName())) {
-            pilots.remove(position);
+        if (isPilotExist(table.get(position).getName())) {
+            table.remove(position);
             return true;
         }
         return false;
     }
 
     public Pilot getPosition(int position){
-        return pilots.get(position);
+        return table.get(position);
     }
 
     public boolean isPilotExist(String name){
         int position = 0;
-        for (Pilot pilot : pilots) {
-            if (pilots.get(position).getName().equals(name)) { return true; }
+        for (Pilot pilot : table) {
+            if (table.get(position).getName().equals(name)) { return true; }
             position++;
         }
         return false;
@@ -66,15 +62,12 @@ public class Table {
     public ArrayList<String> convertToStringList() {
         ArrayList<String> stringList = new ArrayList<>();
         int position = 0;
-        for (Pilot pilot : pilots) {
-            String string = pilots.get(position).getName();
+        for (Pilot pilot : table) {
+            String string = table.get(position).getName();
             stringList.add(string);
             position++;
         }
         return stringList;
     }
 
-    public void splitPilotInput(){
-        //metodo
-    }
 }
