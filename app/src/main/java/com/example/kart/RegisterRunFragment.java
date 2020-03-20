@@ -33,20 +33,20 @@ import java.util.Objects;
  */
 public class RegisterRunFragment extends Fragment {
 
-    View view;
-    FloatingActionButton floatingActionButton;
-    DatePicker datePicker;
-    String date;
-    EditText editText;
-    ArrayList<String> rank = new ArrayList<>();
-    DatabaseReference databaseReference;
+    private View view;
+    private FloatingActionButton floatingActionButton;
+    private DatePicker datePicker;
+    private String date;
+    private EditText editText;
+    private String[] rank;
+    private DatabaseReference databaseReference;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_register_run, container, false);
 
-        databaseReference = FirebaseDatabase.getInstance().getReference("database").child("run");
+        databaseReference = FirebaseDatabase.getInstance().getReference("run");
         datePicker = (DatePicker) view.findViewById(R.id.datepicker_run);
         editText = (EditText) view.findViewById(R.id.textview_run);
         floatingActionButton = (FloatingActionButton) view.findViewById(R.id.fab_run_add);
@@ -60,17 +60,23 @@ public class RegisterRunFragment extends Fragment {
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                formatData();
-                formatRank();
-                runRegister();
+                if (editText.getText().toString().isEmpty())
+                    Toast.makeText(getContext(), R.string.msg_empty_field, Toast.LENGTH_SHORT).show();
+                else {
+                    formatData();
+                    formatRank();
+                    runRegister();
+                }
             }
         });
     }
 
     public void formatRank(){
         String[] array = editText.getText().toString().split("\n");
-        for(String position : array)
-            rank.add(position);
+        int position = 1;
+        editText.setText("");
+        rank = array;
+
     }
 
     public void formatData(){
@@ -90,16 +96,17 @@ public class RegisterRunFragment extends Fragment {
     }
 
     public void runRegister(){
-        final Run run = new Run(date,rank);
+        final Run run = new Run();
         Query query = databaseReference.orderByChild("date").equalTo(date);
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
-                    Toast.makeText(getContext(),getString(R.string.msg_run_exist) + date,Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(),getString(R.string.msg_run_exist) + " " + date,Toast.LENGTH_SHORT).show();
                 }
                 else{
                     run.setId(databaseReference.push().getKey());
+                    run.setDate(date);
                     run.setRank(rank);
                     databaseReference.child(run.getId()).setValue(run);
                     Toast.makeText(getContext(),getString(R.string.msg_run_add),Toast.LENGTH_SHORT).show();

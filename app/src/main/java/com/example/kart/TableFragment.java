@@ -29,56 +29,70 @@ import java.util.Objects;
 
 public class TableFragment extends Fragment {
 
-    ListView listView;
-    DatabaseReference databaseReference;
-    ArrayList<String> table_list = new ArrayList<>();
-    ArrayList<String> ids = new ArrayList<>();
-    ArrayAdapter<String> adapter;
-    FloatingActionButton floatingActionButton;
-    View view;
-    Pilot pilot = new Pilot();
-    Run run;
-    Table table = new Table();
+    private ListView listView;
+    private DatabaseReference dbPilot;
+    private DatabaseReference dbRun;
+    private ArrayList<String> table_list = new ArrayList<>();
+    private ArrayList<String> ids = new ArrayList<>();
+    private ArrayAdapter<String> adapter;
+    private FloatingActionButton floatingActionButton;
+    private View view;
+    private Pilot pilot = new Pilot();
+    private Run run;
+    private ArrayList<Run> runs = new ArrayList<>();
+    private Table table = new Table();
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_table, container, false);
 
-        databaseReference = FirebaseDatabase.getInstance().getReference("database");
+        dbPilot = FirebaseDatabase.getInstance().getReference("pilot");
+        dbRun = FirebaseDatabase.getInstance().getReference("run");
 
         //listview
         listView = (ListView) view.findViewById(R.id.listview_table);
-        adapter = new ArrayAdapter<String>(view.getContext(),android.R.layout.simple_list_item_1, table_list);
+        adapter = new ArrayAdapter<>(container.getContext(),android.R.layout.simple_list_item_1, table_list);
         listView.setAdapter(adapter);
 
         listviewFunction();
 
         fabRegister();
 
-        calcTable();
+        getPilots();
+        getRuns();
+        //calcTable();
 
         return view;
     }
 
-    public void calcTable() {
-        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    public void calcTable(){
+        for(Run run : runs){
+
+        }
+    }
+
+    public void getPilots() {
+        dbPilot.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                pilot = dataSnapshot.child("pilot").getValue(Pilot.class);
-                run = dataSnapshot.child("run").getValue(Run.class);
-                if (pilot != null || run != null) {
-                    Objects.requireNonNull(run).setPoint();
-                    pilot.setTotal_points(run.getPilotPoint(pilot));
-                    table.add(pilot);
-                    table.setRank();
-                    table.sortTable();
-                    for (ArrayList<Pilot> pilot : table) {
+                pilot = dataSnapshot.getValue(Pilot.class);
+                table.add(pilot);
+            }
 
-                        databaseReference.child("pilot").child();
-                    }
-                }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    public void getRuns(){
+        dbRun.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                run = dataSnapshot.getValue(Run.class);
+                runs.add(run);
             }
 
             @Override
@@ -101,9 +115,8 @@ public class TableFragment extends Fragment {
     }
 
     public void listviewFunction(){
-        databaseReference.addChildEventListener(new ChildEventListener() {
+        dbPilot.addChildEventListener(new ChildEventListener() {
 
-            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 listviewAdd(dataSnapshot);
@@ -114,7 +127,6 @@ public class TableFragment extends Fragment {
 
             }
 
-            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
                 listviewDel(dataSnapshot);
@@ -132,18 +144,16 @@ public class TableFragment extends Fragment {
         });
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public void listviewAdd(@NonNull DataSnapshot dataSnapshot){
-        String row = Objects.requireNonNull(dataSnapshot.getValue(Pilot.class)).toString();
+        String row = dataSnapshot.getValue(Pilot.class).toString();
         table_list.add(row);
         String key = dataSnapshot.getKey();
         ids.add(key);
         adapter.notifyDataSetChanged();
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public void listviewDel(@NonNull DataSnapshot dataSnapshot){
-        String row = Objects.requireNonNull(dataSnapshot.getValue(Pilot.class)).toString();
+        String row = dataSnapshot.getValue(Pilot.class).toString();
         table_list.remove(row);
         String key = dataSnapshot.getKey();
         ids.remove(key);

@@ -10,7 +10,11 @@ public class Pilot {
     private int rank;
     private int runs;
 
-    public Pilot(){}
+    public Pilot(){
+        this.setTotal_points(0);
+        this.setRank(0);
+        this.setRuns(0);
+    }
 
     public Pilot(String name){
         this.setName(name);
@@ -65,7 +69,7 @@ public class Pilot {
 
     @Override
     public String toString(){
-        return rank + " - " + name + " - " + total_points;
+        return String.format("%d - %s - %d", this.rank, this.name, this.total_points);
     }
 
 

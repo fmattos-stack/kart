@@ -46,7 +46,7 @@ public class RunFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_run, container, false);
 
         textView = (TextView) view.findViewById(R.id.textview_run);
-        databaseReference = FirebaseDatabase.getInstance().getReference("database").child("run");
+        databaseReference = FirebaseDatabase.getInstance().getReference("run");
 
         //listview
         listView = (ListView) view.findViewById(R.id.listview_run);
@@ -113,18 +113,16 @@ public class RunFragment extends Fragment {
         });
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public void listviewAdd(@NonNull DataSnapshot dataSnapshot){
-        String row = Objects.requireNonNull(dataSnapshot.getValue(Run.class)).toString();
+        String row = dataSnapshot.getValue(Run.class).toString();
         runs.add(row);
         String key = dataSnapshot.getKey();
         ids.add(key);
         adapter.notifyDataSetChanged();
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public void listviewDel(@NonNull DataSnapshot dataSnapshot){
-        String row = Objects.requireNonNull(dataSnapshot.getValue(Run.class)).toString();
+        String row = dataSnapshot.getValue(Run.class).toString();
         runs.remove(row);
         String key = dataSnapshot.getKey();
         ids.remove(key);

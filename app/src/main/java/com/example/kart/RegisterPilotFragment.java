@@ -31,14 +31,14 @@ import java.util.Objects;
  */
 public class RegisterPilotFragment extends Fragment {
 
-    TextView textView;
-    ListView listView;
-    ArrayList<String> pilots = new ArrayList<>();
-    ArrayList<String> ids = new ArrayList<>();
-    ArrayAdapter<String> adapter;
-    DatabaseReference databaseReference;
-    FloatingActionButton floatingActionButton;
-    View view;
+    private TextView textView;
+    private ListView listView;
+    private ArrayList<String> pilots = new ArrayList<>();
+    private ArrayList<String> ids = new ArrayList<>();
+    private ArrayAdapter<String> adapter;
+    private DatabaseReference databaseReference;
+    private FloatingActionButton floatingActionButton;
+    private View view;
 
     public RegisterPilotFragment() {
         // Required empty public constructor
@@ -55,7 +55,7 @@ public class RegisterPilotFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_register_pilot, container, false);
 
         textView = (TextView) view.findViewById(R.id.textview_pilot);
-        databaseReference = FirebaseDatabase.getInstance().getReference("database").child("pilot");
+        databaseReference = FirebaseDatabase.getInstance().getReference("pilot");
 
         //listview
         listView = (ListView) view.findViewById(R.id.listview_pilot);
@@ -71,6 +71,7 @@ public class RegisterPilotFragment extends Fragment {
 
     public void listviewFuntion(){
         databaseReference.addChildEventListener(new ChildEventListener() {
+            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 listviewAdd(dataSnapshot);
@@ -81,6 +82,7 @@ public class RegisterPilotFragment extends Fragment {
 
             }
 
+            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
                 listviewDel(dataSnapshot);
