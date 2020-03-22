@@ -71,8 +71,10 @@ public class Pilot implements  Comparable<Pilot>{
     public void sort(ArrayList<Pilot> pilots){
         Collections.sort(pilots);
         int position = 1;
-        for(Pilot pilot : pilots){
-            pilot.setRank(position);
+        for(Pilot pilot : pilots) {
+            if(pilot.getName().equals(this.name)) {
+                pilot.setRank(position);
+            }
             position++;
         }
     }

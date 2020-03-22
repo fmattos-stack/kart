@@ -135,18 +135,21 @@ public class RegisterRunFragment extends Fragment {
         dbPilot.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                ArrayList<Pilot> pilots;
-                pilots = getPilots(dataSnapshot); //get pilots from db
-                for (String rowPilotName : rank) {
-                    for (Pilot rowPilot : pilots)
-                        if (rowPilotName.equals(rowPilot.getName())){
-                            rowPilot.setTotal_points(run.catPilotPoint(rowPilot));
-                            rowPilot.setRuns(1);
-                            rowPilot.sort(pilots);
-                            dbPilot.child(rowPilot.getId()).setValue(rowPilot);
-                    }
-                }
-            }
+                ArrayList<Pilot> pilots = getPilots(dataSnapshot); //get pilots from db
+                if(pilots != null) {
+                    for (String rowPilotName : rank) {
+                        for(Pilot pilot : pilots) {
+                            Log.d("Fernando: ", "entrou" );
+                            if (rowPilotName.equals(pilot.getName())) {
+                                pilot.setTotal_points(run.catPilotPoint(pilot));
+                                pilot.setRuns(1);
+                                pilot.sort(pilots);
+                                dbPilot.child(pilot.getId()).setValue(pilot);
+                            } //for
+                        } //if
+                    } //for
+                } //if
+            } //onDataChange
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) { }
         });
