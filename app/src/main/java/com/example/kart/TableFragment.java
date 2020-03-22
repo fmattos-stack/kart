@@ -1,7 +1,9 @@
 package com.example.kart;
 
+import android.media.DrmInitData;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,16 +33,11 @@ public class TableFragment extends Fragment {
 
     private ListView listView;
     private DatabaseReference dbPilot;
-    private DatabaseReference dbRun;
-    private ArrayList<String> table_list = new ArrayList<>();
-    private ArrayList<String> ids = new ArrayList<>();
+    private ArrayList<String> table_list;
+    private ArrayList<String> ids;
     private ArrayAdapter<String> adapter;
     private FloatingActionButton floatingActionButton;
     private View view;
-    private Pilot pilot = new Pilot();
-    private Run run;
-    private ArrayList<Run> runs = new ArrayList<>();
-    private Table table = new Table();
 
     @Nullable
     @Override
@@ -48,60 +45,19 @@ public class TableFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_table, container, false);
 
         dbPilot = FirebaseDatabase.getInstance().getReference("pilot");
-        dbRun = FirebaseDatabase.getInstance().getReference("run");
 
         //listview
+        table_list = new ArrayList<>();
+        ids = new ArrayList<>();
         listView = (ListView) view.findViewById(R.id.listview_table);
         adapter = new ArrayAdapter<>(container.getContext(),android.R.layout.simple_list_item_1, table_list);
         listView.setAdapter(adapter);
-
         listviewFunction();
 
         fabRegister();
 
-        getPilots();
-        getRuns();
-        //calcTable();
-
         return view;
     }
-
-    public void calcTable(){
-        for(Run run : runs){
-
-        }
-    }
-
-    public void getPilots() {
-        dbPilot.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                pilot = dataSnapshot.getValue(Pilot.class);
-                table.add(pilot);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-    }
-
-    public void getRuns(){
-        dbRun.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                run = dataSnapshot.getValue(Run.class);
-                runs.add(run);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-    }
-
 
     public void fabRegister(){
         floatingActionButton = (FloatingActionButton) view.findViewById(R.id.fab_pilot_register);
@@ -113,47 +69,29 @@ public class TableFragment extends Fragment {
             }
         });
     }
-
     public void listviewFunction(){
         dbPilot.addChildEventListener(new ChildEventListener() {
-
             @Override
-            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                listviewAdd(dataSnapshot);
-            }
-
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) { listviewAdd(dataSnapshot); }
             @Override
-            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-            }
-
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) { }
             @Override
-            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-                listviewDel(dataSnapshot);
-            }
-
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) { listviewDel(dataSnapshot); }
             @Override
-            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-            }
-
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) { }
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
+            public void onCancelled(@NonNull DatabaseError databaseError) { }
         });
     }
-
     public void listviewAdd(@NonNull DataSnapshot dataSnapshot){
-        String row = dataSnapshot.getValue(Pilot.class).toString();
+        String row = dataSnapshot.getValue(Pilot.class).rowTable();
         table_list.add(row);
         String key = dataSnapshot.getKey();
         ids.add(key);
         adapter.notifyDataSetChanged();
     }
-
     public void listviewDel(@NonNull DataSnapshot dataSnapshot){
-        String row = dataSnapshot.getValue(Pilot.class).toString();
+        String row = dataSnapshot.getValue(Pilot.class).rowTable();
         table_list.remove(row);
         String key = dataSnapshot.getKey();
         ids.remove(key);

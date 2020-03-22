@@ -6,34 +6,7 @@ import java.util.Collections;
 import java.util.Comparator;
 
 public class Table {
-
-    private ArrayList<Pilot> table;
-
-    public Table(){
-        table = new ArrayList<>();
-    }
-
-    public void add(Pilot pilot){
-        table.add(pilot);
-    }
-
-    public void setRank(){
-        int position = 0;
-        for(Pilot pilot : table){
-            table.get(position).setRank(position+1);
-            position++;
-        }
-    }
-
-    public void sortTable(){
-        Collections.sort(table, new Comparator<Pilot>() {
-            @Override
-            public int compare(Pilot o1, Pilot o2) {
-                return Double.compare(o1.getTotal_points(), o2.getTotal_points());
-            }
-        });
-    }
-
+/*
     public int getSize(){
         return table.size();
     }
@@ -70,4 +43,6 @@ public class Table {
         return stringList;
     }
 
+
+ */
 }

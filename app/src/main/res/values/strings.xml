@@ -18,6 +18,7 @@
     <string name="msg_run_exist">Corrida já foi registrada</string>
     <string name="msg_run_add">Corrida registrada</string>
     <string name="msg_run_del">Corrida removida</string>
+    <string name="msg_pilot_duplicate">Piloto duplicado</string>
     <string name="pilot_string">Piloto</string>
     <string name="layout_table">Rank - Piloto - Pontos</string>
     <string name="hint_run_rank">Pilotos na ordem de chegada</string>

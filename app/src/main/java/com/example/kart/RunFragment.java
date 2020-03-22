@@ -26,6 +26,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Objects;
 
 public class RunFragment extends Fragment {
@@ -63,29 +64,15 @@ public class RunFragment extends Fragment {
     public void listviewFunction(){
         databaseReference.addChildEventListener(new ChildEventListener() {
             @Override
-            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                listviewAdd(dataSnapshot);
-            }
-
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) { listviewAdd(dataSnapshot); }
             @Override
-            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-            }
-
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) { }
             @Override
-            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-                listviewDel(dataSnapshot);
-            }
-
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) { listviewDel(dataSnapshot); }
             @Override
-            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-            }
-
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) { }
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
+            public void onCancelled(@NonNull DatabaseError databaseError) { }
         });
 
         listviewItemClick();
@@ -103,27 +90,31 @@ public class RunFragment extends Fragment {
                         adapter.notifyDataSetChanged();
                         Toast.makeText(getContext(), getString(R.string.msg_run_del), Toast.LENGTH_SHORT).show();
                     }
-
                     @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                    }
+                    public void onCancelled(@NonNull DatabaseError databaseError) { }
                 });
             }
         });
     }
 
     public void listviewAdd(@NonNull DataSnapshot dataSnapshot){
-        String row = dataSnapshot.getValue(Run.class).toString();
-        runs.add(row);
+        String row = dataSnapshot.getValue().toString();
+        String formatedRow = formatRow(row);
+        runs.add(formatedRow);
         String key = dataSnapshot.getKey();
         ids.add(key);
         adapter.notifyDataSetChanged();
     }
+    public String formatRow(String row){
+        String [] splited;
+        splited = row.substring(1,row.length()-1).split(",");
+        return splited[0];
+    }
 
     public void listviewDel(@NonNull DataSnapshot dataSnapshot){
-        String row = dataSnapshot.getValue(Run.class).toString();
-        runs.remove(row);
+        String row = dataSnapshot.getValue().toString();
+        String formatedRow = formatRow(row);
+        runs.remove(formatedRow);
         String key = dataSnapshot.getKey();
         ids.remove(key);
         adapter.notifyDataSetChanged();
