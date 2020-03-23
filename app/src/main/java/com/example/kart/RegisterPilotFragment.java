@@ -50,7 +50,6 @@ public class RegisterPilotFragment extends Fragment {
         super.onResume();
         ((MainActivity) Objects.requireNonNull(getActivity())).setActionBarTitle(getString(R.string.menu_pilot_register));
     }
-
     @Override
     public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -72,7 +71,6 @@ public class RegisterPilotFragment extends Fragment {
 
         return view;
     } //onCreate method
-
     public void listviewFuntion(){
         dbPilot.addChildEventListener(new ChildEventListener() {
             @Override
@@ -93,7 +91,7 @@ public class RegisterPilotFragment extends Fragment {
 
         listviewItemClick();
 
-    }
+    } //listview actions
     public void listviewItemClick() {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -112,21 +110,21 @@ public class RegisterPilotFragment extends Fragment {
                 });
             }
         });
-    }
+    } //listview item click action
     public void listviewAdd(@NonNull DataSnapshot dataSnapshot){
         String row = dataSnapshot.getValue(Pilot.class).getName();
         pilots.add(row);
         String key = dataSnapshot.getKey();
         ids.add(key);
         adapter.notifyDataSetChanged();
-    }
+    } //add function for listview
     public void listviewDel(@NonNull DataSnapshot dataSnapshot){
         String row = dataSnapshot.getValue(Pilot.class).getName();
         pilots.remove(row);
         String key = dataSnapshot.getKey();
         ids.remove(key);
         adapter.notifyDataSetChanged();
-    }
+    } //del function for listview
     public void fabButton(){
         floatingActionButton = (FloatingActionButton) view.findViewById(R.id.fab_pilot_add);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
@@ -142,7 +140,7 @@ public class RegisterPilotFragment extends Fragment {
                 }
             } //fab on click
         }); //fab click listener
-    }
+    } //floating action button
     public void registerPilot(String string){
         final Pilot pilot = new Pilot(string);
         Query query = dbPilot.orderByChild("name").equalTo(string);
@@ -162,5 +160,5 @@ public class RegisterPilotFragment extends Fragment {
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) { }
         });
-    }
+    } //register pilot
 } //class

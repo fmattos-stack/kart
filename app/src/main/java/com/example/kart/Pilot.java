@@ -66,17 +66,10 @@ public class Pilot implements  Comparable<Pilot>{
         this.total_points -= point;
     }
     public String rowTable(){
-        return String.format("%d - %s - %d", this.rank, this.name, this.total_points);
-    }
-    public void sort(ArrayList<Pilot> pilots){
-        Collections.sort(pilots);
-        int position = 1;
-        for(Pilot pilot : pilots) {
-            if(pilot.getName().equals(this.name)) {
-                pilot.setRank(position);
-            }
-            position++;
-        }
+        if(this.rank < 10)
+            return String.format("0%d - %s - %d", this.rank, this.name, this.total_points);
+        else
+            return String.format("%d - %s - %d", this.rank, this.name, this.total_points);
     }
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override

@@ -54,7 +54,7 @@ public class RegisterRunFragment extends Fragment {
 
         return view;
     }
-
+    //custom methods
     public void fabRunAdd(){
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,7 +69,7 @@ public class RegisterRunFragment extends Fragment {
                     Toast.makeText(getContext(),R.string.msg_pilot_duplicate, Toast.LENGTH_SHORT).show();
             }
         });
-    }
+    } //floating action button add new run
     public boolean formatRank(){
         String[] inputPilots = editText.getText().toString().trim().split("\n");
         boolean isDuplicate = false;
@@ -133,40 +133,48 @@ public class RegisterRunFragment extends Fragment {
     } //check if input exists, write a new record and calls calcPilotsPoints()
     public void calcPilotsPoints(){
         dbPilot.addListenerForSingleValueEvent(new ValueEventListener() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 ArrayList<Pilot> pilots = getPilots(dataSnapshot); //get pilots from db
-                if(pilots != null) {
-                    for (String rowPilotName : rank) {
-                        for(Pilot pilot : pilots) {
-                            Log.d("Fernando: ", "entrou" );
-                            if (rowPilotName.equals(pilot.getName())) {
+                if (pilots != null) {
+                    for (String rowRank : rank) {
+                        for (Pilot pilot : pilots) {
+                            if (rowRank.equals(pilot.getName())) {
                                 pilot.setTotal_points(run.catPilotPoint(pilot));
                                 pilot.setRuns(1);
-                                pilot.sort(pilots);
-                                dbPilot.child(pilot.getId()).setValue(pilot);
-                            } //for
-                        } //if
-                    } //for
-                } //if
+                            } //if rank line is in pilot line
+                        } //for pilots objects
+                    } //for rank lines
+                    pilotsSort(pilots);
+                    for (Pilot pilot : pilots){ dbPilot.child(pilot.getId()).setValue(pilot); }
+                } //if pilots not null
             } //onDataChange
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) { }
         });
-    }
-
-    public ArrayList<Pilot> getPilots(DataSnapshot ds){
+    } //calculate total points
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public void pilotsSort(@NotNull ArrayList<Pilot> pilots){
+        int position = 1;
+        pilots.sort(Collections.<Pilot>reverseOrder());
+        for(Pilot pilot:pilots) {
+            pilot.setRank(position);
+            Log.d("Fernando: ", String.format("%d %s %d",pilot.getRank(),pilot.getName(),pilot.getTotal_points()));
+            position++;
+        }
+    } //reverse sort and rank index update
+    public ArrayList<Pilot> getPilots(@NotNull DataSnapshot ds){
         ArrayList<Pilot> pilots = new ArrayList<>();
         for(DataSnapshot rowDS : ds.getChildren()){
             Pilot pilot = rowDS.getValue(Pilot.class);
             pilots.add(pilot);
         }
         return pilots;
-    }
-
+    } //getPilots from db
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public void onResume(){
         super.onResume();
         ((MainActivity) Objects.requireNonNull(getActivity())).setActionBarTitle(getString(R.string.msg_register));
-    }
+    } //set action titlebar on fragment
 }

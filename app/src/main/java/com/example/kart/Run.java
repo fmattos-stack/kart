@@ -35,11 +35,10 @@ public class Run {
                 index++;
             } //for
         }
-    } //method
+    }
     //customs
     public int catPilotPoint(@NotNull Pilot pilot){
         for (Map.Entry<String, Integer> mapped : rank.entrySet()) {
-            Log.d("FERNANDO", String.format("%s %d", mapped.getKey(),mapped.getValue()));
             if(mapped.getKey().equals(pilot.getName())){
                 return mapped.getValue();
             }

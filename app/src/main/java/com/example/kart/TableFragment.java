@@ -26,6 +26,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.security.cert.CertPathValidatorException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.EventListener;
 import java.util.Objects;
 
@@ -58,7 +59,7 @@ public class TableFragment extends Fragment {
 
         return view;
     }
-
+    //custom methods
     public void fabRegister(){
         floatingActionButton = (FloatingActionButton) view.findViewById(R.id.fab_pilot_register);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
@@ -68,7 +69,7 @@ public class TableFragment extends Fragment {
                 Objects.requireNonNull(getActivity()).getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new RegisterPilotFragment()).commit();
             }
         });
-    }
+    } //floating action button
     public void listviewFunction(){
         dbPilot.addChildEventListener(new ChildEventListener() {
             @Override
@@ -82,25 +83,25 @@ public class TableFragment extends Fragment {
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) { }
         });
-    }
+    } //listview actions
     public void listviewAdd(@NonNull DataSnapshot dataSnapshot){
         String row = dataSnapshot.getValue(Pilot.class).rowTable();
         table_list.add(row);
+        Collections.sort(table_list);
         String key = dataSnapshot.getKey();
         ids.add(key);
         adapter.notifyDataSetChanged();
-    }
+    } //add function for listview
     public void listviewDel(@NonNull DataSnapshot dataSnapshot){
         String row = dataSnapshot.getValue(Pilot.class).rowTable();
         table_list.remove(row);
         String key = dataSnapshot.getKey();
         ids.remove(key);
         adapter.notifyDataSetChanged();
-    }
-
+    } //del function for listview
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public void onResume(){
         super.onResume();
         ((MainActivity) Objects.requireNonNull(getActivity())).setActionBarTitle(getString(R.string.menu_table));
-    }
+    } //set action titlebar on fragment resume
 }
