@@ -10,12 +10,10 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
-
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -23,10 +21,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.Objects;
 
 public class RunFragment extends Fragment {
@@ -34,7 +29,7 @@ public class RunFragment extends Fragment {
     View view;
     TextView textView;
     ListView listView;
-    DatabaseReference databaseReference;
+    DatabaseReference dbRun;
     ArrayList<String> runs = new ArrayList<>();
     ArrayList<String> ids = new ArrayList<>();
     ArrayAdapter<String> adapter;
@@ -47,7 +42,7 @@ public class RunFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_run, container, false);
 
         textView = (TextView) view.findViewById(R.id.textview_run);
-        databaseReference = FirebaseDatabase.getInstance().getReference("run");
+        dbRun = FirebaseDatabase.getInstance().getReference(String.valueOf(R.string.db_run));
 
         //listview
         listView = (ListView) view.findViewById(R.id.listview_run);
@@ -62,7 +57,7 @@ public class RunFragment extends Fragment {
     }
 
     public void listviewFunction(){
-        databaseReference.addChildEventListener(new ChildEventListener() {
+        dbRun.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) { listviewAdd(dataSnapshot); }
             @Override
@@ -77,16 +72,15 @@ public class RunFragment extends Fragment {
 
         listviewItemClick();
     }
-
     public void listviewItemClick(){
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 final String key = ids.get(position);
-                databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                dbRun.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        databaseReference.child(key).removeValue();
+                        dbRun.child(key).removeValue();
                         adapter.notifyDataSetChanged();
                         Toast.makeText(getContext(), getString(R.string.msg_run_del), Toast.LENGTH_SHORT).show();
                     }
@@ -96,7 +90,6 @@ public class RunFragment extends Fragment {
             }
         });
     }
-
     public void listviewAdd(@NonNull DataSnapshot dataSnapshot){
         String row = dataSnapshot.getValue().toString();
         String formatedRow = formatRow(row);
@@ -110,7 +103,6 @@ public class RunFragment extends Fragment {
         splited = row.substring(1,row.length()-1).split(",");
         return splited[0];
     }
-
     public void listviewDel(@NonNull DataSnapshot dataSnapshot){
         String row = dataSnapshot.getValue().toString();
         String formatedRow = formatRow(row);
@@ -119,7 +111,6 @@ public class RunFragment extends Fragment {
         ids.remove(key);
         adapter.notifyDataSetChanged();
     }
-
     public void fabButton(){
         floatingActionButton = (FloatingActionButton) view.findViewById(R.id.fab_run_add);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
@@ -131,7 +122,6 @@ public class RunFragment extends Fragment {
             }
         });
     }
-
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public void onResume(){
         super.onResume();

@@ -24,7 +24,8 @@
     <string name="hint_run_rank">Pilotos na ordem de chegada</string>
     <string name="msg_run_date">Data da corrida</string>
     <string name="msg_register">Cadastro de corridas</string>
-
+    <string name="db_pilot">dev/pilot</string>
+    <string name="db_run">dev/run</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 

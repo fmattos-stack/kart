@@ -56,7 +56,7 @@ public class RegisterPilotFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_register_pilot, container, false);
 
         textView = (TextView) view.findViewById(R.id.textview_pilot);
-        dbPilot = FirebaseDatabase.getInstance().getReference("pilot");
+        dbPilot = FirebaseDatabase.getInstance().getReference(String.valueOf(R.string.db_pilot));
 
         //listview
         pilots = new ArrayList<>();

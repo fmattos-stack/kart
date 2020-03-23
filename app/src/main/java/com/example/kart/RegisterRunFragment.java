@@ -44,8 +44,8 @@ public class RegisterRunFragment extends Fragment {
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_register_run, container, false);
 
-        dbRun = FirebaseDatabase.getInstance().getReference("run");
-        dbPilot = FirebaseDatabase.getInstance().getReference("pilot");
+        dbRun = FirebaseDatabase.getInstance().getReference(String.valueOf(R.string.db_run));
+        dbPilot = FirebaseDatabase.getInstance().getReference(String.valueOf(R.string.db_pilot));
         datePicker = (DatePicker) view.findViewById(R.id.datepicker_run);
         editText = (EditText) view.findViewById(R.id.textview_run);
         floatingActionButton = (FloatingActionButton) view.findViewById(R.id.fab_run_add);
