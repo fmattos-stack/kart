@@ -18,7 +18,7 @@
             android:backgroundTint="@color/cardview_dark_background"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@color/colorPrimary"
+            android:background="@color/blackColor"
             android:id="@+id/toolbar"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
@@ -32,7 +32,7 @@
     </LinearLayout>
 
     <com.google.android.material.navigation.NavigationView
-        android:backgroundTint="@color/cardview_dark_background"
+        android:backgroundTint="@color/whiteColor"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"

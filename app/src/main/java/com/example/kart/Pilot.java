@@ -13,7 +13,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Map;
 
-public class Pilot implements  Comparable<Pilot>{
+public class Pilot implements Comparable<Pilot>{
 
     private String id;
     private String name;
@@ -62,9 +62,6 @@ public class Pilot implements  Comparable<Pilot>{
         this.runs += runs;
     }
     //customs
-    public void delTotalPoints(int point){
-        this.total_points -= point;
-    }
     public String rowTable(){
         if(this.rank < 10)
             return String.format("0%d - %s - %d", this.rank, this.name, this.total_points);

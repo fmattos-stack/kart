@@ -6,13 +6,19 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -33,67 +39,121 @@ public class RegisterRunFragment extends Fragment {
     private FloatingActionButton floatingActionButton;
     private DatePicker datePicker;
     private String date;
-    private EditText editText;
+    private TextView textView;
+    private TextView textView_index;
     private ArrayList<String> rank;
     private DatabaseReference dbRun;
     private DatabaseReference dbPilot;
     private Run run;
+    private ListView listView;
+    private ArrayAdapter adapter;
+    private ArrayList<String> list;
+    private ArrayList<String> keys;
+    private ArrayList<String> selectedRow;
 
     @Override
     public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_register_run, container, false);
 
-        dbRun = FirebaseDatabase.getInstance().getReference(String.valueOf(R.string.db_run));
-        dbPilot = FirebaseDatabase.getInstance().getReference(String.valueOf(R.string.db_pilot));
-        datePicker = (DatePicker) view.findViewById(R.id.datepicker_run);
-        editText = (EditText) view.findViewById(R.id.textview_run);
-        floatingActionButton = (FloatingActionButton) view.findViewById(R.id.fab_run_add);
+        dbRun = FirebaseDatabase.getInstance().getReference(getString(R.string.db_run));
+        dbPilot = FirebaseDatabase.getInstance().getReference(getString(R.string.db_pilot));
+        datePicker = view.findViewById(R.id.datepicker_run);
+        textView = view.findViewById(R.id.textview_run);
+        textView_index = view.findViewById(R.id.textview_index);
+        floatingActionButton = view.findViewById(R.id.fab_run_add);
+        selectedRow = new ArrayList<>();
+        rank = new ArrayList<>();
+
+        //listview
+        list = new ArrayList<>();
+        keys = new ArrayList<>();
+        adapter = new ArrayAdapter<>(getContext(),android.R.layout.simple_list_item_multiple_choice,list);
+        listView = view.findViewById(R.id.listview_registerRun);
+        listView.setAdapter(adapter);
+
+        listviewFuntion();
 
         fabRunAdd();
 
         return view;
     }
+    public void listviewFuntion(){
+        dbPilot.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                listviewAdd(dataSnapshot);
+            }
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {  }
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+                listviewDel(dataSnapshot);
+            }
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) { }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {  }
+        });
+
+        listviewItemClick();
+
+    } //listview actions
+    public void listviewItemClick() {
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String row = listView.getItemAtPosition(position).toString();
+                if (selectedRow.contains(row)) { selectedRow.remove(row); }
+                else { selectedRow.add(row); }
+                row = "";
+                String index_row = "";
+                int index = 1;
+                for (String lineAdd : selectedRow){
+                    row += lineAdd + "\n";
+                    textView.setText(row);
+                    index_row += index + "\n";
+                    textView_index.setText(index_row);
+                    index++;
+                }
+            }
+        });
+    } //listview item click action
+    public void listviewAdd(@NonNull DataSnapshot dataSnapshot){
+        String row = dataSnapshot.getValue(Pilot.class).getName();
+        list.add(row);
+        String key = dataSnapshot.getKey();
+        keys.add(key);
+        adapter.notifyDataSetChanged();
+    } //add function for listview
+    public void listviewDel(@NonNull DataSnapshot dataSnapshot){
+        String row = dataSnapshot.getValue(Pilot.class).getName();
+        list.remove(row);
+        String key = dataSnapshot.getKey();
+        keys.remove(key);
+        adapter.notifyDataSetChanged();
+    } //del function for listview
     //custom methods
     public void fabRunAdd(){
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (editText.getText().toString().isEmpty())
+                if (textView.getText().toString().isEmpty())
                     Toast.makeText(getContext(), R.string.msg_empty_field, Toast.LENGTH_SHORT).show();
-                else if(formatRank()){
+                else {
+                    formatRank();
                     formatDate();
                     runRegister();
                 }
-                else
-                    Toast.makeText(getContext(),R.string.msg_pilot_duplicate, Toast.LENGTH_SHORT).show();
             }
         });
     } //floating action button add new run
-    public boolean formatRank(){
-        String[] inputPilots = editText.getText().toString().trim().split("\n");
-        boolean isDuplicate = false;
-        for(int i = 0; i < inputPilots.length; i++) {
-            for (int j = i + 1; j < inputPilots.length; j++) {
-                if (j != i && inputPilots[i].equals(inputPilots[j])) {
-                    isDuplicate = true;
-                }
-            }
-        }
-        if(!isDuplicate) {
-            editText.setText("");
-            rank = capitalizeRank(inputPilots);
-            return true;
-        }
-        return false;
+    public void formatRank(){
+        String[] inputPilots = textView.getText().toString().trim().split("\n");
+        textView.setText("");
+        textView_index.setText("");
+        for(String row : inputPilots){ rank.add(row); }
     } //get input into array, remove spaces, check duplicates and calls capitalize function
-    public ArrayList<String> capitalizeRank(@NotNull String[] input){
-        ArrayList<String> capitalized = new ArrayList<>();
-        for (String rowPilot : input){
-            if (!rowPilot.isEmpty()) capitalized.add(rowPilot.substring(0,1).toUpperCase() + rowPilot.substring(1));
-        }
-        return capitalized;
-    } //capitalize every strings
     public void formatDate(){
         int dd,mm,yyyy;
         dd = datePicker.getDayOfMonth();

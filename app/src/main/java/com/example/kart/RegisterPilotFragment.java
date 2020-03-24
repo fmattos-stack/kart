@@ -55,14 +55,14 @@ public class RegisterPilotFragment extends Fragment {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_register_pilot, container, false);
 
-        textView = (TextView) view.findViewById(R.id.textview_pilot);
-        dbPilot = FirebaseDatabase.getInstance().getReference(String.valueOf(R.string.db_pilot));
+        textView = view.findViewById(R.id.textview_pilot);
+        dbPilot = FirebaseDatabase.getInstance().getReference(getString(R.string.db_pilot));
 
         //listview
         pilots = new ArrayList<>();
         ids = new ArrayList<>();
-        listView = (ListView) view.findViewById(R.id.listview_pilot);
         adapter = new ArrayAdapter<>(container.getContext(),android.R.layout.simple_expandable_list_item_1,pilots);
+        listView = view.findViewById(R.id.listview_pilot);
         listView.setAdapter(adapter);
 
         listviewFuntion();

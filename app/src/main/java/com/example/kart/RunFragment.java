@@ -26,14 +26,14 @@ import java.util.Objects;
 
 public class RunFragment extends Fragment {
 
-    View view;
-    TextView textView;
-    ListView listView;
-    DatabaseReference dbRun;
-    ArrayList<String> runs = new ArrayList<>();
-    ArrayList<String> ids = new ArrayList<>();
-    ArrayAdapter<String> adapter;
-    FloatingActionButton floatingActionButton;
+    private View view;
+    private TextView textView;
+    private ListView listView;
+    private DatabaseReference dbRun;
+    private ArrayList<String> runs = new ArrayList<>();
+    private ArrayList<String> ids = new ArrayList<>();
+    private ArrayAdapter<String> adapter;
+    private FloatingActionButton floatingActionButton;
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Nullable
@@ -41,11 +41,11 @@ public class RunFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_run, container, false);
 
-        textView = (TextView) view.findViewById(R.id.textview_run);
-        dbRun = FirebaseDatabase.getInstance().getReference(String.valueOf(R.string.db_run));
+        textView = view.findViewById(R.id.textview_run);
+        dbRun = FirebaseDatabase.getInstance().getReference(getString(R.string.db_run));
 
         //listview
-        listView = (ListView) view.findViewById(R.id.listview_run);
+        listView = view.findViewById(R.id.listview_run);
         adapter = new ArrayAdapter<>(Objects.requireNonNull(getContext()),android.R.layout.simple_list_item_1,runs);
         listView.setAdapter(adapter);
 

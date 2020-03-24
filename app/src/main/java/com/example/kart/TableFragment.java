@@ -36,7 +36,7 @@ public class TableFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_table, container, false);
 
-        dbPilot = FirebaseDatabase.getInstance().getReference(String.valueOf(R.string.db_pilot));
+        dbPilot = FirebaseDatabase.getInstance().getReference(getString(R.string.db_pilot));
 
         //listview
         table_list = new ArrayList<>();
