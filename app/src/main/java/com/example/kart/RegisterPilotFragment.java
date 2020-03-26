@@ -30,7 +30,6 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.Objects;
 
-
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -135,12 +134,20 @@ public class RegisterPilotFragment extends Fragment {
                 if (string.isEmpty())
                     Toast.makeText(v.getContext(), getString(R.string.msg_empty_field),Toast.LENGTH_SHORT).show();
                 else {
-                    string = string.substring(0, 1).toUpperCase() + string.substring(1).toLowerCase();
+                    string = capitalizeString(string);
                     registerPilot(string);
                 }
             } //fab on click
         }); //fab click listener
     } //floating action button
+    public String capitalizeString(@NotNull String string){
+        String[] words = string.split(" ");
+        String capitalizedWord = "";
+        for (String row : words) {
+            capitalizedWord += row.substring(0, 1).toUpperCase() + row.substring(1).toLowerCase() + " ";
+        }
+        return capitalizedWord.trim();
+    }
     public void registerPilot(String string){
         final Pilot pilot = new Pilot(string);
         Query query = dbPilot.orderByChild("name").equalTo(string);

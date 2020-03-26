@@ -59,6 +59,15 @@
         android:layout_marginTop="16dp"
         android:minLines="1" />
 
+    <Button
+        android:id="@+id/button_clear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/button_clear"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="50dp"
+        android:layout_below="@+id/textview_run" />
+
     <ListView
         android:id="@+id/listview_registerRun"
         android:layout_width="200dp"
@@ -67,6 +76,5 @@
         android:layout_below="@+id/divider_datePicker"
         android:layout_alignParentRight="true"
         android:layout_marginRight="10dp" />
-
 
 </RelativeLayout>

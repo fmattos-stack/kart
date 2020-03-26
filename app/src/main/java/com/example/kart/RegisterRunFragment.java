@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -45,6 +46,8 @@ public class RegisterRunFragment extends Fragment {
     private DatabaseReference dbRun;
     private DatabaseReference dbPilot;
     private Run run;
+    private Button button_clear;
+    //listview
     private ListView listView;
     private ArrayAdapter adapter;
     private ArrayList<String> list;
@@ -64,11 +67,12 @@ public class RegisterRunFragment extends Fragment {
         floatingActionButton = view.findViewById(R.id.fab_run_add);
         selectedRow = new ArrayList<>();
         rank = new ArrayList<>();
+        button_clear = view.findViewById(R.id.button_clear);
 
         //listview
         list = new ArrayList<>();
         keys = new ArrayList<>();
-        adapter = new ArrayAdapter<>(getContext(),android.R.layout.simple_list_item_multiple_choice,list);
+        adapter = new ArrayAdapter<>(getContext(),android.R.layout.simple_list_item_1,list);
         listView = view.findViewById(R.id.listview_registerRun);
         listView.setAdapter(adapter);
 
@@ -76,7 +80,19 @@ public class RegisterRunFragment extends Fragment {
 
         fabRunAdd();
 
+        clearButton();
+
         return view;
+    }
+    public void clearButton(){
+        button_clear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                textView.setText("");
+                textView_index.setText("");
+                selectedRow.clear();
+            }
+        });
     }
     public void listviewFuntion(){
         dbPilot.addChildEventListener(new ChildEventListener() {
@@ -152,6 +168,7 @@ public class RegisterRunFragment extends Fragment {
         String[] inputPilots = textView.getText().toString().trim().split("\n");
         textView.setText("");
         textView_index.setText("");
+        selectedRow.clear();
         for(String row : inputPilots){ rank.add(row); }
     } //get input into array, remove spaces, check duplicates and calls capitalize function
     public void formatDate(){
@@ -181,7 +198,7 @@ public class RegisterRunFragment extends Fragment {
                 else{
                     run.setId(dbRun.push().getKey());
                     run.setDate(date);
-                    run.setRank(rank);
+                    run.pointRank(rank);
                     dbRun.child(run.getId()).setValue(run);
                     calcPilotsPoints();
                     Toast.makeText(getContext(),getString(R.string.msg_run_add),Toast.LENGTH_SHORT).show();

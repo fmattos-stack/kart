@@ -1,5 +1,6 @@
 package com.example.kart;
 
+import android.media.MediaCas;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -21,7 +22,13 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
+import java.util.EventListener;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 public class RunFragment extends Fragment {
@@ -30,8 +37,10 @@ public class RunFragment extends Fragment {
     private TextView textView;
     private ListView listView;
     private DatabaseReference dbRun;
+    private DatabaseReference dbPilot;
     private ArrayList<String> runs = new ArrayList<>();
     private ArrayList<String> ids = new ArrayList<>();
+    private ArrayList<String> currentRank = new ArrayList<>();
     private ArrayAdapter<String> adapter;
     private FloatingActionButton floatingActionButton;
 
@@ -43,6 +52,7 @@ public class RunFragment extends Fragment {
 
         textView = view.findViewById(R.id.textview_run);
         dbRun = FirebaseDatabase.getInstance().getReference(getString(R.string.db_run));
+        dbPilot = FirebaseDatabase.getInstance().getReference(getString(R.string.db_pilot));
 
         //listview
         listView = view.findViewById(R.id.listview_run);
@@ -80,6 +90,7 @@ public class RunFragment extends Fragment {
                 dbRun.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        removepoints(dataSnapshot, key);
                         dbRun.child(key).removeValue();
                         adapter.notifyDataSetChanged();
                         Toast.makeText(getContext(), getString(R.string.msg_run_del), Toast.LENGTH_SHORT).show();
@@ -90,6 +101,38 @@ public class RunFragment extends Fragment {
             }
         });
     }
+    public void removepoints(final DataSnapshot dsRun, final String key){
+        dbPilot.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                ArrayList<Pilot> pilots = getPilots(dataSnapshot);
+                Run run = catRank(dsRun, key);
+                for(Pilot pilotRow : pilots){
+                    pilotRow.setTotal_points(run.catPilotPoint(pilotRow)*-1);
+                    pilotRow.setRuns(-1);
+                    dbPilot.child(pilotRow.getId()).setValue(pilotRow);
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+    public Run catRank(@NotNull DataSnapshot ds, String key){
+        for(DataSnapshot rowRun : ds.getChildren()){
+            Run run = rowRun.getValue(Run.class);
+            if (run.getId().equals(key)) { return run; }
+        }
+        return null;
+    }
+    public ArrayList<Pilot> getPilots(@NotNull DataSnapshot ds){
+        ArrayList<Pilot> pilots = new ArrayList<>();
+        for(DataSnapshot dsRow : ds.getChildren()){
+            pilots.add(dsRow.getValue(Pilot.class));
+        }
+        return pilots;
+    }
     public void listviewAdd(@NonNull DataSnapshot dataSnapshot){
         String row = dataSnapshot.getValue().toString();
         String formatedRow = formatRow(row);
@@ -98,7 +141,7 @@ public class RunFragment extends Fragment {
         ids.add(key);
         adapter.notifyDataSetChanged();
     }
-    public String formatRow(String row){
+    public String formatRow(@NotNull String row){
         String [] splited;
         splited = row.substring(1,row.length()-1).split(",");
         return splited[0];
@@ -112,7 +155,7 @@ public class RunFragment extends Fragment {
         adapter.notifyDataSetChanged();
     }
     public void fabButton(){
-        floatingActionButton = (FloatingActionButton) view.findViewById(R.id.fab_run_add);
+        floatingActionButton = view.findViewById(R.id.fab_run_add);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
