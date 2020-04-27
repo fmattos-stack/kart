@@ -1,4 +1,4 @@
-#Mon Apr 27 17:57:07 GMT-03:00 2020
+#Mon Apr 27 19:04:15 GMT-03:00 2020
 base.0=/home/r00t/dev/mobile/java/kart/app/build/intermediates/dex/debug/out/classes.dex
 path.0=classes.dex
 renamed.0=classes.dex
