@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "/home/r00t/AndroidStudioProjects/kart/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-ldltr-v21/values-ldltr-v21.xml",
+            "outputFile": "/home/r00t/dev/mobile/java/kart/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-ldltr-v21/values-ldltr-v21.xml",
             "map": [
                 {
                     "source": "/home/r00t/.gradle/caches/transforms-2/files-2.1/f350b9c8987c067c7d37aeb24b1ba637/appcompat-1.1.0/res/values-ldltr-v21/values-ldltr-v21.xml",

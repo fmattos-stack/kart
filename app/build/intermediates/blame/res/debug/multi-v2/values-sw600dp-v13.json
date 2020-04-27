@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "/home/r00t/AndroidStudioProjects/kart/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-sw600dp-v13/values-sw600dp-v13.xml",
+            "outputFile": "/home/r00t/dev/mobile/java/kart/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-sw600dp-v13/values-sw600dp-v13.xml",
             "map": [
                 {
                     "source": "/home/r00t/.gradle/caches/transforms-2/files-2.1/8bab39f89a501ea877f62525bb754ee9/material-1.1.0/res/values-sw600dp-v13/values-sw600dp-v13.xml",

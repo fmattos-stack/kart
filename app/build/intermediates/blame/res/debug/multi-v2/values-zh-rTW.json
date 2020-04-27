@@ -1,10 +1,27 @@
 {
     "logs": [
         {
-            "outputFile": "/home/r00t/AndroidStudioProjects/kart/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-zh-rTW/values-zh-rTW.xml",
+            "outputFile": "/home/r00t/dev/mobile/java/kart/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-zh-rTW/values-zh-rTW.xml",
             "map": [
                 {
-                    "source": "/home/r00t/.gradle/caches/transforms-2/files-2.1/5894cc91ce2ded450ae084a33c0c3d07/jetified-play-services-base-16.0.1/res/values-zh-rTW/values.xml",
+                    "source": "/home/r00t/.gradle/caches/transforms-2/files-2.1/4f64af2704bdf23fa2da7f9fc3674a27/jetified-play-services-basement-16.0.1/res/values-zh-rTW/values.xml",
+                    "from": {
+                        "startLines": "4",
+                        "startColumns": "0",
+                        "startOffsets": "251",
+                        "endColumns": "161",
+                        "endOffsets": "412"
+                    },
+                    "to": {
+                        "startLines": "37",
+                        "startColumns": "4",
+                        "startOffsets": "3693",
+                        "endColumns": "161",
+                        "endOffsets": "3850"
+                    }
+                },
+                {
+                    "source": "/home/r00t/.gradle/caches/transforms-2/files-2.1/de0b4055a272ec4e8d3548a504bcbd4d/jetified-play-services-base-16.0.1/res/values-zh-rTW/values.xml",
                     "from": {
                         "startLines": "4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20",
                         "startColumns": "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0",
@@ -35,23 +52,6 @@
                         "startOffsets": "5057",
                         "endColumns": "100",
                         "endOffsets": "5153"
-                    }
-                },
-                {
-                    "source": "/home/r00t/.gradle/caches/transforms-2/files-2.1/10aaaa328449e45e9c9856fe1df09dfb/jetified-play-services-basement-16.0.1/res/values-zh-rTW/values.xml",
-                    "from": {
-                        "startLines": "4",
-                        "startColumns": "0",
-                        "startOffsets": "251",
-                        "endColumns": "161",
-                        "endOffsets": "412"
-                    },
-                    "to": {
-                        "startLines": "37",
-                        "startColumns": "4",
-                        "startOffsets": "3693",
-                        "endColumns": "161",
-                        "endOffsets": "3850"
                     }
                 },
                 {

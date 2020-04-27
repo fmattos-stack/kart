@@ -1,4 +1,4 @@
-#Thu Mar 26 02:48:40 BRT 2020
-base.0=/home/r00t/AndroidStudioProjects/kart/app/build/intermediates/dex/debug/out/classes.dex
+#Mon Apr 27 17:57:07 GMT-03:00 2020
+base.0=/home/r00t/dev/mobile/java/kart/app/build/intermediates/dex/debug/out/classes.dex
 path.0=classes.dex
 renamed.0=classes.dex
