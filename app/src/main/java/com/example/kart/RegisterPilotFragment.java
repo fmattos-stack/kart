@@ -30,9 +30,6 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.Objects;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class RegisterPilotFragment extends Fragment {
 
     private TextView textView;
@@ -60,7 +57,7 @@ public class RegisterPilotFragment extends Fragment {
         //listview
         pilots = new ArrayList<>();
         ids = new ArrayList<>();
-        adapter = new ArrayAdapter<>(container.getContext(),android.R.layout.simple_expandable_list_item_1,pilots);
+        adapter = new ArrayAdapter<>(container.getContext(),R.layout.pilot_listview_layout,pilots);
         listView = view.findViewById(R.id.listview_pilot);
         listView.setAdapter(adapter);
 
@@ -168,4 +165,5 @@ public class RegisterPilotFragment extends Fragment {
             public void onCancelled(@NonNull DatabaseError databaseError) { }
         });
     } //register pilot
+
 } //class

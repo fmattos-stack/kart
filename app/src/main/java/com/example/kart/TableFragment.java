@@ -6,11 +6,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.FrameLayout;
 import android.widget.ListView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -42,7 +46,7 @@ public class TableFragment extends Fragment {
         table_list = new ArrayList<>();
         ids = new ArrayList<>();
         listView = view.findViewById(R.id.listview_table);
-        adapter = new ArrayAdapter<>(container.getContext(),android.R.layout.simple_list_item_1, table_list);
+        adapter = new ArrayAdapter<>(container.getContext(),R.layout.table_listview_layout, table_list);
         listView.setAdapter(adapter);
         listviewFunction();
 
@@ -50,6 +54,7 @@ public class TableFragment extends Fragment {
 
         return view;
     }
+
     //custom methods
     public void fabRegister(){
         floatingActionButton = (FloatingActionButton) view.findViewById(R.id.fab_pilot_register);
@@ -57,24 +62,30 @@ public class TableFragment extends Fragment {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onClick(View v) {
-                Objects.requireNonNull(getActivity()).getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new RegisterPilotFragment()).commit();
+                openFragment();
             }
         });
     } //floating action button
+
     public void listviewFunction(){
         dbPilot.addChildEventListener(new ChildEventListener() {
             @Override
-            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) { listviewAdd(dataSnapshot); }
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                listviewAdd(dataSnapshot);
+            }
             @Override
             public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) { }
             @Override
-            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) { listviewDel(dataSnapshot); }
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+                listviewDel(dataSnapshot);
+            }
             @Override
             public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) { }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) { }
         });
     } //listview actions
+
     public void listviewAdd(@NonNull DataSnapshot dataSnapshot){
         String row = dataSnapshot.getValue(Pilot.class).rowTable();
         table_list.add(row);
@@ -83,6 +94,7 @@ public class TableFragment extends Fragment {
         ids.add(key);
         adapter.notifyDataSetChanged();
     } //add function for listview
+
     public void listviewDel(@NonNull DataSnapshot dataSnapshot){
         String row = dataSnapshot.getValue(Pilot.class).rowTable();
         table_list.remove(row);
@@ -90,9 +102,24 @@ public class TableFragment extends Fragment {
         ids.remove(key);
         adapter.notifyDataSetChanged();
     } //del function for listview
+
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public void onResume(){
         super.onResume();
         ((MainActivity) Objects.requireNonNull(getActivity())).setActionBarTitle(getString(R.string.menu_table));
     } //set action titlebar on fragment resume
+
+    public void openFragment(){
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        RegisterPilotFragment fragment = new RegisterPilotFragment();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+
+        transaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_right,
+                R.anim.enter_from_right, R.anim.exit_to_right)
+                .replace(R.id.fragment_container,fragment)
+                .addToBackStack(null)
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                .commit();
+    }
+
 }

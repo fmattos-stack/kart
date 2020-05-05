@@ -36,6 +36,10 @@
         "source": "/home/r00t/dev/mobile/java/kart/app/build/generated/res/pngs/debug/drawable-ldpi/ic_person_add_black_24dp.png"
     },
     {
+        "merged": "/home/r00t/dev/mobile/java/kart/app/build/intermediates/res/merged/debug/anim_exit_to_right.xml.flat",
+        "source": "/home/r00t/dev/mobile/java/kart/app/src/main/res/anim/exit_to_right.xml"
+    },
+    {
         "merged": "/home/r00t/dev/mobile/java/kart/app/build/intermediates/res/merged/debug/drawable-xxhdpi_ic_playlist_add_black_24dp.png.flat",
         "source": "/home/r00t/dev/mobile/java/kart/app/build/generated/res/pngs/debug/drawable-xxhdpi/ic_playlist_add_black_24dp.png"
     },
@@ -172,6 +176,10 @@
         "source": "/home/r00t/dev/mobile/java/kart/app/src/main/res/mipmap-xxhdpi/ic_launcher.png"
     },
     {
+        "merged": "/home/r00t/dev/mobile/java/kart/app/build/intermediates/res/merged/debug/layout_table_listview_layout.xml.flat",
+        "source": "/home/r00t/dev/mobile/java/kart/app/src/main/res/layout/table_listview_layout.xml"
+    },
+    {
         "merged": "/home/r00t/dev/mobile/java/kart/app/build/intermediates/res/merged/debug/drawable-anydpi-v21_ic_today_black_24dp.xml.flat",
         "source": "/home/r00t/dev/mobile/java/kart/app/build/generated/res/pngs/debug/drawable-anydpi-v21/ic_today_black_24dp.xml"
     },
@@ -228,6 +236,10 @@
         "source": "/home/r00t/dev/mobile/java/kart/app/build/generated/res/pngs/debug/drawable-ldpi/ic_person_black_24dp.png"
     },
     {
+        "merged": "/home/r00t/dev/mobile/java/kart/app/build/intermediates/res/merged/debug/layout_pilot_listview_layout.xml.flat",
+        "source": "/home/r00t/dev/mobile/java/kart/app/src/main/res/layout/pilot_listview_layout.xml"
+    },
+    {
         "merged": "/home/r00t/dev/mobile/java/kart/app/build/intermediates/res/merged/debug/mipmap-mdpi_ic_launcher.png.flat",
         "source": "/home/r00t/dev/mobile/java/kart/app/src/main/res/mipmap-mdpi/ic_launcher.png"
     },
@@ -270,6 +282,10 @@
     {
         "merged": "/home/r00t/dev/mobile/java/kart/app/build/intermediates/res/merged/debug/drawable-xxhdpi_ic_person_add_black_24dp.png.flat",
         "source": "/home/r00t/dev/mobile/java/kart/app/build/generated/res/pngs/debug/drawable-xxhdpi/ic_person_add_black_24dp.png"
+    },
+    {
+        "merged": "/home/r00t/dev/mobile/java/kart/app/build/intermediates/res/merged/debug/anim_enter_from_right.xml.flat",
+        "source": "/home/r00t/dev/mobile/java/kart/app/src/main/res/anim/enter_from_right.xml"
     },
     {
         "merged": "/home/r00t/dev/mobile/java/kart/app/build/intermediates/res/merged/debug/drawable-xxhdpi_ic_person_black_24dp.png.flat",

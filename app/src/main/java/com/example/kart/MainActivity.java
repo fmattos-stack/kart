@@ -27,7 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
- public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+ public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
      private DrawerLayout drawer;
 
@@ -85,4 +85,6 @@ import java.util.Objects;
      public void setActionBarTitle(String title) {
          Objects.requireNonNull(getSupportActionBar()).setTitle(title);
      }
+
+
  }

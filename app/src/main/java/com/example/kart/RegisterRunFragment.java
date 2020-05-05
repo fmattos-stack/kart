@@ -135,13 +135,16 @@ public class RegisterRunFragment extends Fragment {
             }
         });
     } //listview item click action
+
     public void listviewAdd(@NonNull DataSnapshot dataSnapshot){
         String row = dataSnapshot.getValue(Pilot.class).getName();
         list.add(row);
+
         String key = dataSnapshot.getKey();
         keys.add(key);
         adapter.notifyDataSetChanged();
     } //add function for listview
+
     public void listviewDel(@NonNull DataSnapshot dataSnapshot){
         String row = dataSnapshot.getValue(Pilot.class).getName();
         list.remove(row);
@@ -149,6 +152,7 @@ public class RegisterRunFragment extends Fragment {
         keys.remove(key);
         adapter.notifyDataSetChanged();
     } //del function for listview
+
     //custom methods
     public void fabRunAdd(){
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
@@ -169,8 +173,11 @@ public class RegisterRunFragment extends Fragment {
         textView.setText("");
         textView_index.setText("");
         selectedRow.clear();
-        for(String row : inputPilots){ rank.add(row); }
+        for(String row : inputPilots){
+            rank.add(row);
+        }
     } //get input into array, remove spaces, check duplicates and calls capitalize function
+
     public void formatDate(){
         int dd,mm,yyyy;
         dd = datePicker.getDayOfMonth();
@@ -186,6 +193,7 @@ public class RegisterRunFragment extends Fragment {
         yyyy = datePicker.getYear();
         date += String.valueOf(yyyy);
     } //get input date and add a left zero if needed
+
     public void runRegister(){
         run = new Run();
         Query query = dbRun.orderByChild("date").equalTo(date);
@@ -208,6 +216,7 @@ public class RegisterRunFragment extends Fragment {
             public void onCancelled(@NonNull DatabaseError databaseError) { }
         });
     } //check if input exists, write a new record and calls calcPilotsPoints()
+
     public void calcPilotsPoints(){
         dbPilot.addListenerForSingleValueEvent(new ValueEventListener() {
             @RequiresApi(api = Build.VERSION_CODES.N)
@@ -231,6 +240,7 @@ public class RegisterRunFragment extends Fragment {
             public void onCancelled(@NonNull DatabaseError databaseError) { }
         });
     } //calculate total points
+
     @RequiresApi(api = Build.VERSION_CODES.N)
     public void pilotsSort(@NotNull ArrayList<Pilot> pilots){
         int position = 1;
@@ -241,6 +251,7 @@ public class RegisterRunFragment extends Fragment {
             position++;
         }
     } //reverse sort and rank index update
+
     public ArrayList<Pilot> getPilots(@NotNull DataSnapshot ds){
         ArrayList<Pilot> pilots = new ArrayList<>();
         for(DataSnapshot rowDS : ds.getChildren()){
@@ -249,6 +260,7 @@ public class RegisterRunFragment extends Fragment {
         }
         return pilots;
     } //getPilots from db
+
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public void onResume(){
         super.onResume();
