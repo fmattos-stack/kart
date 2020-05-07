@@ -103,20 +103,29 @@ public class RunFragment extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
                 final String key = ids.get(position);
+                RunView fragment = RunView.newInstance(key);
+                openFragment(fragment);
+
+                /*
                 dbRun.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                        /*
                         removepoints(dataSnapshot, key);
                         dbRun.child(key).removeValue();
                         adapter.notifyDataSetChanged();
                         Toast.makeText(getContext(), getString(R.string.msg_run_del), Toast.LENGTH_SHORT).show();
+
                     }
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {
                     }
                 });
+                 */
             }
         });
     }
@@ -189,7 +198,8 @@ public class RunFragment extends Fragment {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onClick(View v) {
-                openFragment();
+                RegisterRunFragment fragment = new RegisterRunFragment();
+                openFragment(fragment);
             }
         });
     }
@@ -200,14 +210,13 @@ public class RunFragment extends Fragment {
         ((MainActivity) Objects.requireNonNull(getActivity())).setActionBarTitle(getString(R.string.menu_run));
     }
 
-    public void openFragment() {
+    public void openFragment(Object fragment) {
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-        RegisterRunFragment fragment = new RegisterRunFragment();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
 
         transaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_right,
                 R.anim.enter_from_right, R.anim.exit_to_right)
-                .replace(R.id.fragment_container, fragment)
+                .replace(R.id.fragment_container, (Fragment) fragment)
                 .addToBackStack(null)
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                 .commit();

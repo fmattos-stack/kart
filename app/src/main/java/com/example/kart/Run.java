@@ -5,6 +5,7 @@ import android.util.Log;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -32,6 +33,7 @@ public class Run {
         }
         return -1;
     }
+
     public void pointRank(ArrayList<String> rank){
         int[] table = {35,30,27,25,23,21,19,17,15,13,12,11,10,9,8};
         int index = 0;
@@ -46,4 +48,5 @@ public class Run {
             } //for
         }
     }
+
 }
