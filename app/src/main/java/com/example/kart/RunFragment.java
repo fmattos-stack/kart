@@ -1,6 +1,5 @@
 package com.example.kart;
 
-import android.media.MediaCas;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,14 +9,12 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -25,13 +22,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
-import org.jetbrains.annotations.NotNull;
-
 import java.util.ArrayList;
-import java.util.EventListener;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Objects;
 
 public class RunFragment extends Fragment {
@@ -43,7 +34,6 @@ public class RunFragment extends Fragment {
     private DatabaseReference dbPilot;
     private ArrayList<String> runs;
     private ArrayList<String> ids;
-    private ArrayList<String> currentRank = new ArrayList<>();
     private ArrayAdapter<String> adapter;
     private FloatingActionButton floatingActionButton;
 
@@ -64,14 +54,14 @@ public class RunFragment extends Fragment {
         adapter = new ArrayAdapter<>(Objects.requireNonNull(getContext()), android.R.layout.simple_list_item_1, runs);
         listView.setAdapter(adapter);
 
-        listviewFunction();
+        dbListenerFunction();
 
         fabButton();
 
         return view;
     }
 
-    public void listviewFunction() {
+    public void dbListenerFunction() {
         dbRun.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
@@ -104,7 +94,7 @@ public class RunFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                final String key = ids.get(position);
+                String key = ids.get(position);
                 RunView fragment = RunView.newInstance(key);
                 openFragment(fragment);
 
@@ -134,8 +124,11 @@ public class RunFragment extends Fragment {
         dbPilot.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                ArrayList<Pilot> pilots = getPilots(dataSnapshot);
-                Run run = catRank(dsRun, key);
+                Pilot pilot = new Pilot();
+                ArrayList<Pilot> pilots = pilot.loadAll(dataSnapshot);
+
+                Run run = new Run();
+                run.load(dsRun, key);
                 for (Pilot pilotRow : pilots) {
                     pilotRow.setTotal_points(run.catPilotPoint(pilotRow) * -1);
                     pilotRow.setRuns(-1);
@@ -150,44 +143,20 @@ public class RunFragment extends Fragment {
         });
     }
 
-    public Run catRank(@NotNull DataSnapshot ds, String key) {
-        for (DataSnapshot rowRun : ds.getChildren()) {
-            Run run = rowRun.getValue(Run.class);
-            if (run.getId().equals(key)) {
-                return run;
-            }
-        }
-        return null;
-    }
-
-    public ArrayList<Pilot> getPilots(@NotNull DataSnapshot ds) {
-        ArrayList<Pilot> pilots = new ArrayList<>();
-        for (DataSnapshot dsRow : ds.getChildren()) {
-            pilots.add(dsRow.getValue(Pilot.class));
-        }
-        return pilots;
-    }
-
     public void listviewAdd(@NonNull DataSnapshot dataSnapshot) {
-        String row = dataSnapshot.getValue().toString();
-        String formatedRow = formatRow(row);
-        runs.add(formatedRow);
-        String key = dataSnapshot.getKey();
+        Run run = dataSnapshot.getValue(Run.class);
+        String row = "Data: " + run.formatDate();
+        runs.add(row);
+        String key = run.getId(); //dataSnapshot.getKey();
         ids.add(key);
         adapter.notifyDataSetChanged();
     }
 
-    public String formatRow(@NotNull String row) {
-        String[] splited;
-        splited = row.substring(1, row.length() - 1).split(",");
-        return splited[0];
-    }
-
     public void listviewDel(@NonNull DataSnapshot dataSnapshot) {
-        String row = dataSnapshot.getValue().toString();
-        String formatedRow = formatRow(row);
-        runs.remove(formatedRow);
-        String key = dataSnapshot.getKey();
+        Run run = dataSnapshot.getValue(Run.class);
+        String row = "Data: " + run.formatDate();
+        runs.remove(row);
+        String key = run.getId(); //dataSnapshot.getKey();
         ids.remove(key);
         adapter.notifyDataSetChanged();
     }
@@ -215,7 +184,7 @@ public class RunFragment extends Fragment {
         FragmentTransaction transaction = fragmentManager.beginTransaction();
 
         transaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_right,
-                R.anim.enter_from_right, R.anim.exit_to_right)
+                    R.anim.enter_from_right, R.anim.exit_to_right)
                 .replace(R.id.fragment_container, (Fragment) fragment)
                 .addToBackStack(null)
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)

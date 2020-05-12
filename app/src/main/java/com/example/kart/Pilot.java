@@ -5,6 +5,8 @@ import android.util.Log;
 
 import androidx.annotation.RequiresApi;
 
+import com.google.firebase.database.DataSnapshot;
+
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
@@ -73,6 +75,25 @@ public class Pilot implements Comparable<Pilot>{
     public int compareTo(@NotNull Pilot o) {
         return Integer.compare(this.total_points, o.total_points);
     }
+
+    public Pilot load(@NotNull DataSnapshot ds, String key) {
+        for (DataSnapshot rowPilot : ds.getChildren()) {
+            Pilot pilot = rowPilot.getValue(Pilot.class);
+            if (pilot.getId().equals(key)) {
+                return pilot;
+            }
+        }
+        return null;
+    }
+
+    public ArrayList<Pilot> loadAll(@NotNull DataSnapshot ds) {
+        ArrayList<Pilot> pilots = new ArrayList<>();
+        for (DataSnapshot rowPilot : ds.getChildren()) {
+            pilots.add(rowPilot.getValue(Pilot.class));
+        }
+        return pilots;
+    }
+
 }
 
 

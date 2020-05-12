@@ -10,11 +10,13 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.ChildEventListener;
@@ -37,6 +39,8 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
 
+import static androidx.constraintlayout.widget.Constraints.TAG;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link RunView#newInstance} factory method to
@@ -55,9 +59,10 @@ public class RunView extends Fragment {
     private DatabaseReference dbRun;
     private ListView listView;
     private ArrayList<String> ids;
-    private ArrayList<String> runs;
+    private ArrayList<String> runners;
     private ArrayAdapter<String> adapter;
     private Run run;
+    private TextView textView;
 
     public RunView() {
         // Required empty public constructor
@@ -88,28 +93,29 @@ public class RunView extends Fragment {
 
         dbRun = FirebaseDatabase.getInstance().getReference(getString(R.string.db_run));
 
-        runs = new ArrayList<>();
+        runners = new ArrayList<>();
         ids = new ArrayList<>();
         listView = view.findViewById(R.id.listview_run_view);
-        adapter = new ArrayAdapter<>(Objects.requireNonNull(getContext()),R.layout.rank_listview_layout, runs);
+        adapter = new ArrayAdapter<>(Objects.requireNonNull(getContext()),R.layout.rank_listview_layout, runners);
         listView.setAdapter(adapter);
-
+        textView = view.findViewById(R.id.textview_run);
         run = new Run();
 
-        getRankFromDB();
+        dbListenerFunction();
 
         fabButton();
 
         return view;
     }
 
-    public void getRankFromDB(){
+    public void dbListenerFunction(){
         dbRun.addListenerForSingleValueEvent(new ValueEventListener() {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                run = catRank(dataSnapshot, mKey);
+                run = run.load(dataSnapshot, mKey);
                 listviewAdd(run);
+                textView.setText(run.formatDate());
             }
 
             @Override
@@ -120,14 +126,12 @@ public class RunView extends Fragment {
     }
     @RequiresApi(api = Build.VERSION_CODES.N)
     public void listviewAdd(Run run) {
-        if (run != null) {
-            final Map<String, Integer> sortedRun = sortByValue(run.getRank());
-            for (Map.Entry<String, Integer> row: sortedRun.entrySet()) {
-                runs.add(row.toString());
-                ids.add(mKey);
-            }
-            adapter.notifyDataSetChanged();
+        final Map<String, Integer> sortedRun = sortByValue(run.getRank());
+        for (Map.Entry<String, Integer> row: sortedRun.entrySet()) {
+            runners.add(row.toString());
+            ids.add(mKey);
         }
+        adapter.notifyDataSetChanged();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -136,8 +140,8 @@ public class RunView extends Fragment {
         return wordCounts.entrySet()
                 .stream()
                 .sorted((Map.Entry.<String, Integer>comparingByValue().reversed()))
-                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
-
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue,
+                        (e1, e2) -> e1, LinkedHashMap::new));
     }
 
     public void fabButton() {
@@ -150,16 +154,6 @@ public class RunView extends Fragment {
                 openFragment(fragment);
             }
         });
-    }
-
-    public Run catRank(@NotNull DataSnapshot ds, String key) {
-        for (DataSnapshot rowRun : ds.getChildren()) {
-            Run run = rowRun.getValue(Run.class);
-            if (run.getId().equals(key)) {
-                return run;
-            }
-        }
-        return null;
     }
 
     public void openFragment(Object fragment) {

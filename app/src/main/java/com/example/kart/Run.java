@@ -1,11 +1,8 @@
 package com.example.kart;
 
-import android.util.Log;
-
+import com.google.firebase.database.DataSnapshot;
 import org.jetbrains.annotations.NotNull;
-
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,6 +22,11 @@ public class Run {
     public void setDate(String date) { this.date = date; }
     public void setRank(Map<String, Integer> rank){ this.rank = rank; }
     //customs
+    public String formatDate(){
+        String formatDate = this.date.substring(0, 2) + "/" + this.date.substring(2, 4) + "/" +
+                this.date.substring(4);
+        return formatDate;
+    }
     public int catPilotPoint(@NotNull Pilot pilot){
         for (Map.Entry<String, Integer> mapped : rank.entrySet()) {
             if(mapped.getKey().equals(pilot.getName())){
@@ -49,4 +51,13 @@ public class Run {
         }
     }
 
-}
+    public Run load(@NotNull DataSnapshot ds, String key) {
+        for (DataSnapshot rowRun : ds.getChildren()) {
+            Run run = rowRun.getValue(Run.class);
+            if (run.getId().equals(key)) {
+                return run;
+            }
+        }
+        return null;
+    }
+} //end class
